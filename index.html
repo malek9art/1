@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malek.Art - فن وإبداع</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a1f36',
+                        'gold': '#d4af37',
+                        'light-gold': '#f4e4a6'
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body { 
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif; 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .font-cairo { font-family: 'Cairo', sans-serif; }
+        .font-tajawal { font-family: 'Tajawal', sans-serif; }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3748 50%, #1a1f36 100%);
+            position: relative;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23d4af37" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23d4af37" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23f4e4a6" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        .gold-gradient { 
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .hover-scale { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .hover-scale:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+        }
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        .fade-in.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .portfolio-item { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: 1;
+        }
+        .portfolio-item:hover::before {
+            left: 100%;
+        }
+        .portfolio-item:hover { 
+            transform: translateY(-15px) scale(1.02); 
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.25);
+        }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .floating { animation: float 6s ease-in-out infinite; }
+        .pulse-gold { animation: pulse 2s infinite; }
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(212, 175, 55, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .service-card:hover::after {
+            transform: translateX(100%);
+        }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #d4af37;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #d4af37; }
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .hero-slideshow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--navy);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-navy font-arabic">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 gradient-bg shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img id="logo-img" src="" alt="Malek Art Logo" class="w-12 h-12 ml-3 rounded-full shadow-lg">
+                    <div class="text-2xl font-bold text-gold font-cairo" id="site-name">Malek.Art</div>
+                </div>
+                <div class="hidden md:flex space-x-reverse space-x-8">
+                    <a href="#home" class="text-white hover:text-gold transition-colors nav-link">الرئيسية</a>
+                    <a href="#about" class="text-white hover:text-gold transition-colors nav-link">من أنا</a>
+                    <a href="#services" class="text-white hover:text-gold transition-colors nav-link">الخدمات</a>
+                    <a href="#portfolio" class="text-white hover:text-gold transition-colors nav-link">المعرض</a>
+                    <a href="#testimonials" class="text-white hover:text-gold transition-colors nav-link">آراء العملاء</a>
+                    <a href="#contact" class="text-white hover:text-gold transition-colors nav-link">تواصل معي</a>
+                </div>
+                <button class="md:hidden text-white" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden hidden mt-4" id="mobile-menu">
+                <a href="#home" class="block py-2 text-white hover:text-gold nav-link">الرئيسية</a>
+                <a href="#about" class="block py-2 text-white hover:text-gold nav-link">من أنا</a>
+                <a href="#services" class="block py-2 text-white hover:text-gold nav-link">الخدمات</a>
+                <a href="#portfolio" class="block py-2 text-white hover:text-gold nav-link">المعرض</a>
+                <a href="#testimonials" class="block py-2 text-white hover:text-gold nav-link">آراء العملاء</a>
+                <a href="#contact" class="block py-2 text-white hover:text-gold nav-link">تواصل معي</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen gradient-bg flex items-center relative overflow-hidden">
+        <!-- Background Image Slideshow -->
+        <div class="absolute inset-0 hero-slideshow" id="hero-slideshow">
+            <!-- Slides will be loaded dynamically -->
+        </div>
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-navy bg-opacity-70"></div>
+        <!-- Decorative floating elements -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="floating absolute top-20 left-1/4 text-gold text-4xl opacity-60" style="animation-delay: -1s;">
+                <i class="fas fa-palette"></i>
+            </div>
+            <div class="floating absolute bottom-40 right-1/4 text-gold text-3xl opacity-60" style="animation-delay: -3s;">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="fade-in">
+                <div class="mb-8">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 font-tajawal text-shadow" id="hero-title">مرحباً بك في مالك أرت</h1>
+                    <div class="typing-animation text-xl md:text-2xl text-gold font-semibold mb-6 inline-block" id="hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
+                </div>
+                <p class="text-lg md:text-xl text-light-gold mb-12 max-w-4xl mx-auto leading-relaxed" id="hero-description">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
+                <div class="space-x-reverse space-x-6 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#portfolio" class="gold-gradient text-navy px-10 py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-lg">
+                        <i class="fas fa-eye ml-2"></i>
+                        <span id="hero-button1">استكشف أعمالي</span>
+                    </a>
+                    <a href="#contact" class="border-2 border-gold text-gold px-10 py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-lg hover-scale">
+                        <i class="fas fa-comments ml-2"></i>
+                        <span id="hero-button2">تواصل معي</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Animated Background Elements -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-navy to-transparent"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-navy mb-4 font-cairo">من أنا</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-gray-600 text-lg">تعرف على مالك وخبرته في عالم التصميم والتطوير</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-in slide-in-left">
+                    <div class="relative">
+                        <div class="w-80 h-80 mx-auto bg-gradient-to-br from-gold via-light-gold to-gold rounded-full flex items-center justify-center shadow-2xl floating">
+                            <div class="text-center">
+                                <i class="fas fa-user-tie text-6xl text-navy mb-4"></i>
+                                <div class="text-navy font-bold text-xl">مالك أرت</div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-navy rounded-full flex items-center justify-center pulse-gold">
+                            <i class="fas fa-code text-gold text-2xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gold rounded-full flex items-center justify-center floating" style="animation-delay: -1s;">
+                            <i class="fas fa-palette text-navy text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in slide-in-right">
+                    <h3 class="text-3xl font-bold text-navy mb-6 font-cairo" id="about-title">مطور ومنسق مشاريع رقمية</h3>
+                    <p class="text-gray-700 mb-8 leading-relaxed text-lg" id="about-description">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="skills-container">
+                        <!-- Skills will be loaded dynamically -->
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="text-xl font-bold text-navy mb-4 flex items-center">
+                            <i class="fas fa-heart text-gold ml-2"></i>
+                            قيمي الأساسية
+                        </h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-rocket text-gold text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy">السرعة</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-expand-arrows-alt text-gold text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy">قابلية التوسع</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-cogs text-gold text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy">العملية</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-users text-gold text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy">خدمة المجتمع</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="floating absolute top-10 left-10 text-gold text-4xl">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="floating absolute bottom-20 right-20 text-gold text-5xl" style="animation-delay: -3s;">
+                <i class="fas fa-rocket"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-in">
+                <h2 class="text-4xl font-bold text-navy mb-4 font-tajawal">خدماتي</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">نقدم مجموعة شاملة من الخدمات الرقمية لتلبية احتياجات مشروعك</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-container">
+                <!-- Services will be loaded dynamically -->
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-16 fade-in">
+                <div class="bg-gradient-to-r from-navy to-gray-800 p-8 rounded-2xl shadow-2xl">
+                    <h3 class="text-3xl font-bold text-white mb-4 font-cairo">هل لديك مشروع في ذهنك؟</h3>
+                    <p class="text-light-gold mb-6 text-lg">دعنا نحوله إلى واقع رقمي مذهل</p>
+                    <a href="#contact" class="gold-gradient text-navy px-8 py-4 rounded-full font-bold hover-scale shadow-lg text-lg inline-block">
+                        <i class="fas fa-rocket ml-2"></i>
+                        ابدأ مشروعك الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gradient-to-br from-navy to-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="floating absolute top-16 left-16 text-gold text-5xl">
+                <i class="fas fa-quote-right"></i>
+            </div>
+            <div class="floating absolute bottom-20 right-20 text-gold text-4xl" style="animation-delay: -2s;">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4 font-tajawal">آراء العملاء</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-light-gold text-lg">ما يقوله عملاؤنا عن تجربتهم معنا</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonials-container">
+                <!-- Testimonials will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-navy mb-4">معرض الأعمال</h2>
+                <div class="w-20 h-1 gold-gradient mx-auto mb-8"></div>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="all">الكل</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="هوية بصرية">هوية بصرية</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواد تسويقية">مواد تسويقية</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواقع">مواقع</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="دعوات">دعوات</button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-container">
+                <!-- Portfolio items will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">تواصل معي</h2>
+                <div class="w-20 h-1 gold-gradient mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-white mb-6">لنبدأ مشروعك القادم</h3>
+                    <p class="text-light-gold mb-8">أنا هنا لتحويل أفكارك إلى واقع فني مذهل. تواصل معي الآن ولنناقش مشروعك</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center hover-scale cursor-pointer">
+                            <i class="fas fa-envelope text-gold text-xl ml-4"></i>
+                            <a href="mailto:malek9art@gmail.com" class="text-white hover:text-gold transition-colors" id="contact-email">malek9art@gmail.com</a>
+                        </div>
+                        <div class="flex items-center hover-scale cursor-pointer">
+                            <i class="fas fa-phone text-gold text-xl ml-4"></i>
+                            <a href="tel:+967783720851" class="text-white hover:text-gold transition-colors" id="contact-phone">+967 783 720 851</a>
+                        </div>
+                        <div class="flex items-center hover-scale cursor-pointer">
+                            <i class="fab fa-whatsapp text-gold text-xl ml-4"></i>
+                            <a href="https://wa.me/967783720851" target="_blank" class="text-white hover:text-gold transition-colors">واتساب مباشر</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-gold text-xl ml-4"></i>
+                            <span class="text-white" id="contact-address">صنعاء، الجمهورية اليمنية</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-reverse space-x-4 mt-8" id="social-media-container">
+                        <!-- Social media links will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <form class="bg-white p-8 rounded-lg shadow-lg" id="contact-form" action="https://formspree.io/f/mjvnqkqv" method="POST">
+                        <div class="mb-6">
+                            <label class="block text-navy font-semibold mb-2">الاسم</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-navy font-semibold mb-2">البريد الإلكتروني</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-navy font-semibold mb-2">نوع المشروع</label>
+                            <select name="project-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                                <option value="">اختر نوع المشروع</option>
+                                <option value="هوية بصرية">هوية بصرية</option>
+                                <option value="مواد تسويقية">مواد تسويقية</option>
+                                <option value="موقع إلكتروني">موقع إلكتروني</option>
+                                <option value="دعوات ومناسبات">دعوات ومناسبات</option>
+                                <option value="سيرة ذاتية">سيرة ذاتية</option>
+                                <option value="خرائط جوجل">خرائط جوجل</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-navy font-semibold mb-2">الرسالة</label>
+                            <textarea name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold"></textarea>
+                        </div>
+                        <button type="submit" class="w-full gold-gradient text-navy py-3 rounded-lg font-bold hover-scale flex items-center justify-center">
+                            <span id="submit-text">إرسال الرسالة</span>
+                            <div class="loading-spinner ml-2 hidden" id="loading-spinner"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <img id="footer-logo" src="" alt="Malek Art Logo" class="w-10 h-10 ml-3 rounded-full shadow-lg">
+                <div class="text-gold text-2xl font-bold font-cairo" id="footer-site-name">Malek.Art</div>
+            </div>
+            <p class="text-light-gold">© 2024 جميع الحقوق محفوظة - مالك للفنون الرقمية</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Google Sheets Integration -->
+    <script>
+        // Google Sheets IDs and URLs
+        const SHEET_ID = '1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ';
+        const SHEET_SETTINGS = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الإعدادات';
+        const SHEET_HERO = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الرئيسية';
+        const SHEET_HERO_SLIDES = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=صور الهيرو';
+        const SHEET_ABOUT = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=من أنا';
+        const SHEET_SKILLS = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=المهارات';
+        const SHEET_SERVICES = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الخدمات';
+        const SHEET_TESTIMONIALS = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=آراء العملاء';
+        const SHEET_PORTFOLIO = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=المعرض';
+        const SHEET_SOCIAL = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=وسائل التواصل';
+
+        // Parse CSV data
+        function parseCSV(csvText) {
+            const lines = csvText.split(/\r\n|\n/);
+            const result = [];
+            
+            // Extract headers
+            const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
+            
+            // Process data rows
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i]) continue;
+                
+                const obj = {};
+                const currentline = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                
+                for (let j = 0; j < headers.length; j++) {
+                    let value = currentline[j] ? currentline[j].trim().replace(/^"|"$/g, '') : '';
+                    obj[headers[j]] = value;
+                }
+                
+                result.push(obj);
+            }
+            
+            return result;
+        }
+
+        // Fetch data from Google Sheets
+        async function fetchSheetData(url) {
+            try {
+                const response = await fetch(url);
+                const csvText = await response.text();
+                return parseCSV(csvText);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        // Load all data from Google Sheets
+        async function loadAllData() {
+            // Show loading state
+            document.getElementById('site-name').textContent = 'جاري التحميل...';
+            
+            try {
+                // Load settings
+                const settings = await fetchSheetData(SHEET_SETTINGS);
+                if (settings.length > 0) {
+                    document.getElementById('site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
+                    document.getElementById('footer-site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
+                    
+                    const logoUrl = settings[0]['شعار الموقع'];
+                    if (logoUrl) {
+                        document.getElementById('logo-img').src = logoUrl;
+                        document.getElementById('footer-logo').src = logoUrl;
+                    }
+                    
+                    document.getElementById('contact-email').textContent = settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com';
+                    document.getElementById('contact-email').href = `mailto:${settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com'}`;
+                    
+                    document.getElementById('contact-phone').textContent = settings[0]['هاتف التواصل'] || '+967 783 720 851';
+                    document.getElementById('contact-phone').href = `tel:${settings[0]['هاتف التواصل'] || '+967783720851'}`;
+                    
+                    document.getElementById('contact-address').textContent = settings[0]['العنوان'] || 'صنعاء، الجمهورية اليمنية';
+                }
+
+                // Load hero section
+                const heroData = await fetchSheetData(SHEET_HERO);
+                if (heroData.length > 0) {
+                    document.getElementById('hero-title').textContent = heroData[0]['العنوان'] || 'مرحباً بك في مالك أرت';
+                    document.getElementById('hero-subtitle').textContent = heroData[0]['وصف'] || 'نبتكر حلولًا رقمية تجمع بين الفن والتسويق';
+                    document.getElementById('hero-button1').textContent = heroData[0]['نص الزر 1'] || 'استكشف أعمالي';
+                    document.getElementById('hero-button2').textContent = heroData[0]['نص الزر 2'] || 'تواصل معي';
+                }
+
+                // Load hero slides
+                const heroSlides = await fetchSheetData(SHEET_HERO_SLIDES);
+                const slideshowContainer = document.getElementById('hero-slideshow');
+                slideshowContainer.innerHTML = '';
+                
+                heroSlides.forEach((slide, index) => {
+                    if (slide['رابط الصورة']) {
+                        const slideDiv = document.createElement('div');
+                        slideDiv.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                        slideDiv.style.backgroundImage = `url('${slide['رابط الصورة']}')`;
+                        slideshowContainer.appendChild(slideDiv);
+                    }
+                });
+
+                // Load about section
+                const aboutData = await fetchSheetData(SHEET_ABOUT);
+                if (aboutData.length > 0) {
+                    document.getElementById('about-title').textContent = aboutData[0]['العنوان'] || 'مطور ومنسق مشاريع رقمية';
+                    document.getElementById('about-description').textContent = aboutData[0]['الوصف'] || 'أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.';
+                }
+
+                // Load skills
+                const skillsData = await fetchSheetData(SHEET_SKILLS);
+                const skillsContainer = document.getElementById('skills-container');
+                skillsContainer.innerHTML = '';
+                
+                skillsData.forEach(skill => {
+                    if (skill['اسم المهارة'] && skill['النسبة']) {
+                        const skillItem = document.createElement('div');
+                        skillItem.className = 'skill-item bg-white p-4 rounded-lg shadow-lg hover-scale';
+                        skillItem.innerHTML = `
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-palette text-gold text-xl ml-3"></i>
+                                <span class="font-semibold text-navy">${skill['اسم المهارة']}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: ${skill['النسبة']}%"></div>
+                            </div>
+                        `;
+                        skillsContainer.appendChild(skillItem);
+                    }
+                });
+
+                // Load services
+                const servicesData = await fetchSheetData(SHEET_SERVICES);
+                const servicesContainer = document.getElementById('services-container');
+                servicesContainer.innerHTML = '';
+                
+                servicesData.forEach((service, index) => {
+                    if (service['اسم الخدمة'] && service['الوصف']) {
+                        const serviceCard = document.createElement('div');
+                        serviceCard.className = 'service-card bg-gradient-to-br from-gray-50 to-white p-8 rounded-xl hover-scale shadow-xl border border-gray-100';
+                        serviceCard.innerHTML = `
+                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -${index}s;">
+                                <i class="${service['الأيقونة'] || 'fas fa-palette'} text-navy text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-navy mb-4 text-center">${service['اسم الخدمة']}</h3>
+                            <p class="text-gray-600 text-center mb-4">${service['الوصف']}</p>
+                            <div class="text-center">
+                                <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">${service['التصنيف'] || 'احترافي'}</span>
+                            </div>
+                        `;
+                        servicesContainer.appendChild(serviceCard);
+                    }
+                });
+
+                // Load testimonials
+                const testimonialsData = await fetchSheetData(SHEET_TESTIMONIALS);
+                const testimonialsContainer = document.getElementById('testimonials-container');
+                testimonialsContainer.innerHTML = '';
+                
+                testimonialsData.forEach((testimonial, index) => {
+                    if (testimonial['اسم العميل'] && testimonial['التعليق']) {
+                        const testimonialCard = document.createElement('div');
+                        testimonialCard.className = 'testimonial-card p-8 rounded-xl shadow-2xl hover-scale fade-in';
+                        testimonialCard.style.animationDelay = `${index * 0.2}s`;
+                        
+                        // Generate star rating
+                        let starsHtml = '';
+                        const rating = parseInt(testimonial['التقييم']) || 5;
+                        for (let i = 0; i < rating; i++) {
+                            starsHtml += '<i class="fas fa-star text-gold"></i>';
+                        }
+                        
+                        testimonialCard.innerHTML = `
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center ml-4">
+                                    <i class="fas fa-user text-navy text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-navy text-lg">${testimonial['اسم العميل']}</h4>
+                                    <p class="text-gray-600">${testimonial['الوظيفة'] || 'عميل'}</p>
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                ${starsHtml}
+                            </div>
+                            <p class="text-gray-700 italic">"${testimonial['التعليق']}"</p>
+                        `;
+                        testimonialsContainer.appendChild(testimonialCard);
+                    }
+                });
+
+                // Load portfolio
+                const portfolioData = await fetchSheetData(SHEET_PORTFOLIO);
+                const portfolioContainer = document.getElementById('portfolio-container');
+                portfolioContainer.innerHTML = '';
+                
+                portfolioData.forEach(project => {
+                    if (project['اسم المشروع'] && project['الوصف']) {
+                        const portfolioItem = document.createElement('div');
+                        portfolioItem.className = 'portfolio-item';
+                        portfolioItem.setAttribute('data-category', project['التصنيف'] || 'هوية بصرية');
+                        
+                        portfolioItem.innerHTML = `
+                            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                                <div class="h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('${project['الصورة'] || 'https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png'}'); background-size: cover; background-position: center;">
+                                    <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
+                                        <i class="fas fa-palette text-gold text-4xl"></i>
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-navy mb-2">${project['اسم المشروع']}</h3>
+                                    <p class="text-gray-600 mb-4">${project['الوصف']}</p>
+                                    <a href="#" class="text-gold hover:text-navy font-semibold">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
+                                </div>
+                            </div>
+                        `;
+                        portfolioContainer.appendChild(portfolioItem);
+                    }
+                });
+
+                // Load social media
+                const socialData = await fetchSheetData(SHEET_SOCIAL);
+                const socialContainer = document.getElementById('social-media-container');
+                socialContainer.innerHTML = '';
+                
+                socialData.forEach(social => {
+                    if (social['المنصة'] && social['الرابط']) {
+                        const socialLink = document.createElement('a');
+                        socialLink.href = social['الرابط'];
+                        socialLink.target = '_blank';
+                        socialLink.className = 'w-14 h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg';
+                        socialLink.innerHTML = `<i class="${social['الأيقونة'] || 'fab fa-facebook'} text-xl"></i>`;
+                        socialContainer.appendChild(socialLink);
+                    }
+                });
+
+                // Initialize animations and functionality after content is loaded
+                initializeSiteFunctionality();
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // Initialize site functionality
+        function initializeSiteFunctionality() {
+            // Hero slideshow functionality
+            function initHeroSlideshow() {
+                const slides = document.querySelectorAll('.hero-slide');
+                let currentSlide = 0;
+                
+                function nextSlide() {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+                
+                // Change slide every 5 seconds
+                setInterval(nextSlide, 5000);
+            }
+            
+            // Initialize slideshow when page loads
+            initHeroSlideshow();
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        mobileMenu.classList.add('hidden');
+                        
+                        // Smooth scroll with offset for fixed navbar
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Typing animation for hero subtitle
+            function typeWriter(element, text, speed = 100) {
+                let i = 0;
+                element.innerHTML = '';
+                element.style.borderRight = '3px solid #d4af37';
+                
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        // Blinking cursor effect
+                        setInterval(() => {
+                            element.style.borderRight = element.style.borderRight === '3px solid transparent' 
+                                ? '3px solid #d4af37' 
+                                : '3px solid transparent';
+                        }, 750);
+                    }
+                }
+                type();
+            }
+
+            // Start typing animation
+            const heroSubtitle = document.getElementById('hero-subtitle');
+            const text = heroSubtitle.textContent;
+            setTimeout(() => {
+                typeWriter(heroSubtitle, text, 80);
+            }, 1000);
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Portfolio filtering
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-gold', 'text-white');
+                        b.classList.add('text-gold');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active', 'bg-gold', 'text-white');
+                    this.classList.remove('text-gold');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    const portfolioItems = document.querySelectorAll('.portfolio-item');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Fade in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Contact form handling
+            document.getElementById('contact-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const submitText = document.getElementById('submit-text');
+                const loadingSpinner = document.getElementById('loading-spinner');
+                
+                submitText.textContent = 'جاري الإرسال...';
+                loadingSpinner.classList.remove('hidden');
+                submitBtn.disabled = true;
+                
+                try {
+                    const formData = new FormData(this);
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        alert('تم إرسال رسالتك بنجاح! سأتواصل معك قريباً.');
+                        this.reset();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                } catch (error) {
+                    alert('حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.');
+                    console.error('Error:', error);
+                } finally {
+                    submitText.textContent = 'إرسال الرسالة';
+                    loadingSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Load all data when page is ready
+        document.addEventListener('DOMContentLoaded', loadAllData);
+    </script>
+</body>
+</html>
