@@ -41,5 +41,57 @@
     <script src="scripts/sheets-api.js"></script>
     <script src="scripts/animations.js"></script>
     <script src="scripts/main.js"></script>
+<!-- بديل الطوارئ للشاشة البيضاء -->
+<div id="fallback-content" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1a1f36 0%, #2d3748 50%, #1a1f36 100%); z-index: 99999; text-align: center; padding: 50px 20px; font-family: 'Tajawal', sans-serif; overflow-y: auto;">
+    <div style="max-width: 500px; margin: 0 auto;">
+        <img src="https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 30px; border: 3px solid #d4af37;">
+        <h1 style="color: #d4af37; margin-bottom: 20px; font-size: 2.5rem;">Malek.Art</h1>
+        <p style="margin-bottom: 30px; color: #f4e4a6; font-size: 1.2rem;">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</p>
+        
+        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; margin: 30px 0; border: 1px solid rgba(212, 175, 55, 0.3);">
+            <h2 style="color: #d4af37; margin-bottom: 20px;">تواصل معنا</h2>
+            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📧 malek9art@gmail.com</p>
+            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📞 +967 783 720 851</p>
+            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📍 تعز، الجمهورية اليمنية</p>
+        </div>
+        
+        <button onclick="location.reload(true)" style="background: #d4af37; color: #1a1f36; border: none; padding: 15px 30px; border-radius: 50px; margin: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(212, 175, 55, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+            🔄 إعادة تحميل الموقع
+        </button>
+        
+        <div style="margin-top: 40px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+            <p>إذا استمرت المشكلة، يرجى التواصل عبر الواتساب</p>
+            <p style="margin-top: 10px;">⏳ جاري تحميل المحتوى الرئيسي...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// كود الطوارئ للشاشة البيضاء
+function showFallback() {
+    const fallback = document.getElementById('fallback-content');
+    if (fallback) {
+        fallback.style.display = 'block';
+        console.log('تم عرض محتوى الطوارئ بسبب الشاشة البيضاء');
+    }
+}
+
+// إذا لم تحمل الصفحة خلال 4 ثوان، عرض البديل
+setTimeout(function() {
+    if (!window.pageLoaded) {
+        showFallback();
+    }
+}, 4000);
+
+// تأكيد تحميل الصفحة
+window.addEventListener('load', function() {
+    window.pageLoaded = true;
+    const fallback = document.getElementById('fallback-content');
+    if (fallback) {
+        fallback.style.display = 'none';
+    }
+    console.log('الصفحة محملة بنجاح');
+});
+</script>
 </body>
 </html>
