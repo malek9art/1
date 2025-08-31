@@ -1,7 +1,7 @@
 // Hero slideshow functionality
 function initHeroSlideshow() {
     const slides = document.querySelectorAll('.hero-slide');
-    if (slides.length > 1) { // تحتاج أكثر من شريحة للعمل
+    if (slides.length > 1) {
         let currentSlide = 0;
         
         function nextSlide() {
@@ -10,7 +10,6 @@ function initHeroSlideshow() {
             slides[currentSlide].classList.add('active');
         }
         
-        // Change slide every 5 seconds
         setInterval(nextSlide, 5000);
     }
 }
@@ -42,13 +41,11 @@ function initPortfolioFiltering() {
     if (filterButtons.length > 0) {
         filterButtons.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all buttons
                 document.querySelectorAll('.filter-btn').forEach(b => {
                     b.classList.remove('active', 'bg-gold', 'text-white');
                     b.classList.add('text-gold');
                 });
                 
-                // Add active class to clicked button
                 this.classList.add('active', 'bg-gold', 'text-white');
                 this.classList.remove('text-gold');
                 
@@ -94,13 +91,11 @@ function initSmoothScrolling() {
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
-                // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (mobileMenu) {
                     mobileMenu.classList.add('hidden');
                 }
                 
-                // Smooth scroll with offset for fixed navbar
                 const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
@@ -118,7 +113,6 @@ function initContactForm() {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Show loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const submitText = document.getElementById('submit-text');
             const loadingSpinner = document.getElementById('loading-spinner');
@@ -154,3 +148,32 @@ function initContactForm() {
         });
     }
 }
+
+// ==============================================
+// دالة التهيئة الرئيسية - أضفها هنا في النهاية
+// ==============================================
+
+// دالة لتهيئة كل الرسوم المتحركة والوظائف
+function initAllAnimations() {
+    console.log('بدء تهيئة الرسوم المتحركة...');
+    
+    initHeroSlideshow();
+    initScrollAnimations();
+    initPortfolioFiltering();
+    initMobileMenu();
+    initSmoothScrolling();
+    initContactForm();
+    
+    console.log('تم تهيئة جميع الرسوم المتحركة والوظائف ✓');
+}
+
+// جعل الدوال متاحة globally للمساعدة في التصحيح
+window.initHeroSlideshow = initHeroSlideshow;
+window.initScrollAnimations = initScrollAnimations;
+window.initPortfolioFiltering = initPortfolioFiltering;
+window.initMobileMenu = initMobileMenu;
+window.initSmoothScrolling = initSmoothScrolling;
+window.initContactForm = initContactForm;
+window.initAllAnimations = initAllAnimations;
+
+console.log('تم تحميل animations.js بنجاح');
