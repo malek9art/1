@@ -555,16 +555,15 @@
             
             try {
                 // Load settings
-                const settings = await fetchSheetData(SHEET_SETTINGS);
-                if (settings.length > 0) {
-                    document.getElementById('site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
-                    document.getElementById('footer-site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
-                    
-                    const logoUrl = settings[0]['شعار الموقع'];
-                    if (logoUrl) {
-                        document.getElementById('logo-img').src = logoUrl;
-                        document.getElementById('footer-logo').src = logoUrl;
-                    }
+                // شعار ثابت (ضع رابط الشعار الخاص بك)
+const staticLogo = "https://i.ibb.co/Vc7SrDHv/M-20250624-014050.png";
+document.getElementById('logo-img').src = staticLogo;
+document.getElementById('footer-logo').src = staticLogo;
+
+// اسم الموقع ثابت (ضع اسم الموقع الخاص بك)
+const staticSiteName = "Malek Art مالك أرت";
+document.getElementById('site-name').textContent = staticSiteName;
+document.getElementById('footer-site-name').textContent = staticSiteName;
                     
                     document.getElementById('contact-email').textContent = settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com';
                     document.getElementById('contact-email').href = `mailto:${settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com'}`;
@@ -572,7 +571,7 @@
                     document.getElementById('contact-phone').textContent = settings[0]['هاتف التواصل'] || '+967 783 720 851';
                     document.getElementById('contact-phone').href = `tel:${settings[0]['هاتف التواصل'] || '+967783720851'}`;
                     
-                    document.getElementById('contact-address').textContent = settings[0]['العنوان'] || 'صنعاء، الجمهورية اليمنية';
+                    document.getElementById('contact-address').textContent = settings[0]['العنوان'] || 'تعز، الجمهورية اليمنية';
                 }
 
                 // Load hero section
