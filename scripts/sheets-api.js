@@ -1,5 +1,5 @@
 // قاعدة URL لتطبيق Google Scripts الخاص بك
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2uXPU11JWTRqJBrKRW_UkSH-L9SwYC324R9ZmR7sHRjQUynDPF9XDAHHdY-vf9R8I/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTjwVcXQPv_GtXeQvHXSotsKcCXuoTbuxnU_wbAshGiAjLLxzPU-Hb_hHPBaAI25SFpQ/exec';
 
 // Fetch data from Google Sheets via Google Apps Script
 async function fetchSheetData(sheetName) {
