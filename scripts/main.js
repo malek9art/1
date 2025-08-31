@@ -1,16 +1,14 @@
 // Initialize site functionality
 function initializeSiteFunctionality() {
-    // Initialize animations and functionality
-    initHeroSlideshow();
-    initScrollAnimations();
-    initPortfolioFiltering();
-    initMobileMenu();
-    initSmoothScrolling();
-    initContactForm();
+    debugLog('⚙️ بدء تهيئة وظائف الموقع...');
+    initAllAnimations();
+    debugLog('✅ اكتملت تهيئة وظائف الموقع');
 }
 
+// Load all data from Google Sheets
 async function loadAllData() {
-    console.log('بدء تحميل البيانات من جوجل شيتس...');
+    debugLog('📊 بدء تحميل البيانات من جوجل شيتس...');
+    showLoading(0.2);
     
     try {
         const sheetNames = [
@@ -21,16 +19,15 @@ async function loadAllData() {
         const dataPromises = sheetNames.map(sheetName => fetchSheetData(sheetName));
         const allData = await Promise.allSettled(dataPromises);
         
+        showLoading(0.5);
+        
+        // Extract data from promises
         const [
             settings, heroData, heroSlides, aboutData, 
             skillsData, servicesData, testimonialsData, portfolioData, socialData
         ] = allData.map(result => result.status === 'fulfilled' ? result.value : []);
         
-        // عرض هيكل البيانات في الكونسول للمساعدة في التصحيح
-        console.log('هيكل البيانات المستلمة:');
-        console.log('الإعدادات:', settings);
-        console.log('الرئيسية:', heroData);
-        console.log('المهارات:', skillsData);
+        debugLog(`✅ تم جلب بيانات ${allData.filter(r => r.status === 'fulfilled').length} من ${allData.length} ورقة`);
         
         // معالجة البيانات بشكل ديناميكي
         processDataDynamically({
@@ -38,18 +35,33 @@ async function loadAllData() {
             skillsData, servicesData, testimonialsData, portfolioData, socialData
         });
         
+        showLoading(0.8);
+        
     } catch (error) {
-        console.error('Error loading data:', error);
+        debugLog(`❌ خطأ في تحميل البيانات: ${error.message}`);
     } finally {
+        showLoading(1.0);
         initializeSiteFunctionality();
+        window.dataLoaded = true;
+        debugLog('✅ اكتمل تحميل البيانات');
+        
+        // إخفاء مؤشر التحميل بعد ثانية
+        setTimeout(() => {
+            const indicator = document.getElementById('loading-indicator');
+            if (indicator) indicator.style.display = 'none';
+        }, 1000);
     }
 }
 
 function processDataDynamically(data) {
+    debugLog('🔄 معالجة البيانات الديناميكية...');
+    
     // معالجة الإعدادات بشكل ديناميكي
     if (data.settings && data.settings.length > 0) {
         const settings = data.settings[0];
         applySettings(settings);
+    } else {
+        debugLog('⚠️ لا توجد بيانات إعدادات');
     }
     
     // معالجة البيانات الأخرى بشكل ديناميكي
@@ -64,7 +76,8 @@ function processDataDynamically(data) {
 }
 
 function applySettings(settings) {
-    // تطبيق الإعدادات بشكل ديناميكي بناء على المفاتيح المتاحة
+    debugLog('⚙️ تطبيق الإعدادات...');
+    
     const elements = {
         'site-name': ['اسم الموقع', 'Malek.Art'],
         'footer-site-name': ['اسم الموقع', 'Malek.Art'],
@@ -73,23 +86,37 @@ function applySettings(settings) {
         'contact-address': ['العنوان', 'صنعاء، الجمهورية اليمنية']
     };
     
+    let appliedCount = 0;
+    
     for (const [elementId, [key, defaultValue]] of Object.entries(elements)) {
         const element = document.getElementById(elementId);
-        if (element && settings[key] !== undefined) {
+        if (element && settings[key] !== undefined && settings[key] !== '') {
             if (elementId.includes('email')) {
                 element.href = `mailto:${settings[key]}`;
+                element.textContent = settings[key];
             } else if (elementId.includes('phone')) {
                 element.href = `tel:${settings[key]}`;
+                element.textContent = settings[key];
+            } else {
+                element.textContent = settings[key];
             }
-            element.textContent = settings[key] || defaultValue;
+            appliedCount++;
         }
     }
     
     // معالجة الشعار
     const logoImg = document.getElementById('logo-img');
     const footerLogo = document.getElementById('footer-logo');
-    if (settings['شعار الموقع'] && logoImg) logoImg.src = settings['شعار الموقع'];
-    if (settings['شعار الموقع'] && footerLogo) footerLogo.src = settings['شعار الموقع'];
+    if (settings['شعار الموقع'] && logoImg) {
+        logoImg.src = settings['شعار الموقع'];
+        appliedCount++;
+    }
+    if (settings['شعار الموقع'] && footerLogo) {
+        footerLogo.src = settings['شعار الموقع'];
+        appliedCount++;
+    }
+    
+    debugLog(`✅ تم تطبيق ${appliedCount} إعداد`);
 }
 
 function processHeroData(heroData) {
@@ -102,12 +129,17 @@ function processHeroData(heroData) {
             'hero-button2': ['نص الزر 2', 'تواصل معي']
         };
         
+        let appliedCount = 0;
+        
         for (const [elementId, [key, defaultValue]] of Object.entries(elements)) {
             const element = document.getElementById(elementId);
-            if (element && hero[key] !== undefined) {
-                element.textContent = hero[key] || defaultValue;
+            if (element && hero[key] !== undefined && hero[key] !== '') {
+                element.textContent = hero[key];
+                appliedCount++;
             }
         }
+        
+        debugLog(`✅ تم تطبيق ${appliedCount} عنصر من البيانات الرئيسية`);
     }
 }
 
@@ -117,6 +149,7 @@ function processHeroSlides(heroSlides) {
         slideshowContainer.innerHTML = '';
         
         if (heroSlides && heroSlides.length > 0) {
+            let slideCount = 0;
             heroSlides.forEach((slide, index) => {
                 const imageUrl = slide['رابط الصورة'] || slide['صورة'] || slide['image'];
                 if (imageUrl) {
@@ -124,24 +157,10 @@ function processHeroSlides(heroSlides) {
                     slideDiv.className = `hero-slide ${index === 0 ? 'active' : ''}`;
                     slideDiv.style.backgroundImage = `url('${imageUrl}')`;
                     slideshowContainer.appendChild(slideDiv);
+                    slideCount++;
                 }
             });
-        }
-        
-        // إضافة شرائح افتراضية إذا لم توجد بيانات
-        if (slideshowContainer.children.length === 0) {
-            const defaultSlides = [
-                'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80',
-                'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80',
-                'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80'
-            ];
-            
-            defaultSlides.forEach((url, index) => {
-                const slideDiv = document.createElement('div');
-                slideDiv.className = `hero-slide ${index === 0 ? 'active' : ''}`;
-                slideDiv.style.backgroundImage = `url('${url}')`;
-                slideshowContainer.appendChild(slideDiv);
-            });
+            debugLog(`✅ تم تحميل ${slideCount} شريحة خلفية`);
         }
     }
 }
@@ -154,6 +173,8 @@ function processAboutData(aboutData) {
         
         if (titleElement && about['العنوان']) titleElement.textContent = about['العنوان'];
         if (descElement && about['الوصف']) descElement.textContent = about['الوصف'];
+        
+        debugLog('✅ تم تحميل بيانات "من أنا"');
     }
 }
 
@@ -163,6 +184,7 @@ function processSkills(skillsData) {
         skillsContainer.innerHTML = '';
         
         if (skillsData && skillsData.length > 0) {
+            let skillCount = 0;
             skillsData.forEach(skill => {
                 const skillName = skill['اسم المهارة'] || skill['المهارة'] || skill['skill'];
                 const skillPercent = skill['النسبة'] || skill['النسبة المئوية'] || skill['percentage'] || '80';
@@ -180,8 +202,10 @@ function processSkills(skillsData) {
                         </div>
                     `;
                     skillsContainer.appendChild(skillItem);
+                    skillCount++;
                 }
             });
+            debugLog(`✅ تم تحميل ${skillCount} مهارة`);
         }
     }
 }
@@ -192,6 +216,7 @@ function processServices(servicesData) {
         servicesContainer.innerHTML = '';
         
         if (servicesData && servicesData.length > 0) {
+            let serviceCount = 0;
             servicesData.forEach((service, index) => {
                 const serviceName = service['اسم الخدمة'] || service['الخدمة'] || service['service'];
                 const serviceDesc = service['الوصف'] || service['description'];
@@ -212,8 +237,10 @@ function processServices(servicesData) {
                         </div>
                     `;
                     servicesContainer.appendChild(serviceCard);
+                    serviceCount++;
                 }
             });
+            debugLog(`✅ تم تحميل ${serviceCount} خدمة`);
         }
     }
 }
@@ -224,6 +251,7 @@ function processTestimonials(testimonialsData) {
         testimonialsContainer.innerHTML = '';
         
         if (testimonialsData && testimonialsData.length > 0) {
+            let testimonialCount = 0;
             testimonialsData.forEach((testimonial, index) => {
                 const clientName = testimonial['اسم العميل'] || testimonial['العميل'] || testimonial['client'];
                 const clientJob = testimonial['الوظيفة'] || testimonial['وظيفة'] || testimonial['job'] || 'عميل';
@@ -257,8 +285,10 @@ function processTestimonials(testimonialsData) {
                         <p class="text-gray-700 italic">"${clientComment}"</p>
                     `;
                     testimonialsContainer.appendChild(testimonialCard);
+                    testimonialCount++;
                 }
             });
+            debugLog(`✅ تم تحميل ${testimonialCount} رأي عميل`);
         }
     }
 }
@@ -269,6 +299,7 @@ function processPortfolio(portfolioData) {
         portfolioContainer.innerHTML = '';
         
         if (portfolioData && portfolioData.length > 0) {
+            let projectCount = 0;
             portfolioData.forEach(project => {
                 const projectName = project['اسم المشروع'] || project['المشروع'] || project['project'];
                 const projectDesc = project['الوصف'] || project['description'];
@@ -295,8 +326,10 @@ function processPortfolio(portfolioData) {
                         </div>
                     `;
                     portfolioContainer.appendChild(portfolioItem);
+                    projectCount++;
                 }
             });
+            debugLog(`✅ تم تحميل ${projectCount} مشروع`);
         }
     }
 }
@@ -307,6 +340,7 @@ function processSocialMedia(socialData) {
         socialContainer.innerHTML = '';
         
         if (socialData && socialData.length > 0) {
+            let socialCount = 0;
             socialData.forEach(social => {
                 const socialLink = social['الرابط'] || social['رابط'] || social['link'] || '#';
                 const socialIcon = social['الأيقونة'] || social['أيقونة'] || social['icon'] || 'fab fa-facebook';
@@ -318,11 +352,47 @@ function processSocialMedia(socialData) {
                     socialElement.className = 'w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg';
                     socialElement.innerHTML = `<i class="${socialIcon} text-lg md:text-xl"></i>`;
                     socialContainer.appendChild(socialElement);
+                    socialCount++;
                 }
             });
+            debugLog(`✅ تم تحميل ${socialCount} وسيلة تواصل`);
         }
     }
 }
 
+function showLoading(progress) {
+    const indicator = document.getElementById('loading-indicator');
+    if (indicator) {
+        indicator.style.transform = `scaleX(${progress})`;
+        if (progress < 1) {
+            indicator.style.display = 'block';
+        }
+    }
+}
+
+// تحديث البيانات عندما يعود المستخدم للصفحة
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        debugLog('🔄 تجديد البيانات عند العودة للصفحة');
+        loadAllData();
+    }
+});
+
+// تحديث كل 5 دقائق
+setInterval(() => {
+    debugLog('⏰ تحديث تلقائي للبيانات');
+    loadAllData();
+}, 5 * 60 * 1000);
+
 // Load all data when page is ready
-document.addEventListener('DOMContentLoaded', loadAllData);
+document.addEventListener('DOMContentLoaded', function() {
+    debugLog('🚀 بدء تحميل الصفحة...');
+    loadAllData();
+});
+
+// جعل الدوال متاحة للتصحيح
+window.loadAllData = loadAllData;
+window.processDataDynamically = processDataDynamically;
+window.showLoading = showLoading;
+
+debugLog('✅ تم تحميل main.js بنجاح - جاهز لتحميل البيانات');
