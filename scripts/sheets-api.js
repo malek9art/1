@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzV9HMtZVZxk_gLGi0mBf5Md9fmG1XCn747rbfkX64gongb21kRQEQlK8jq-79_mOrX/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxamw53b0BTqHNkhXAccHHfgKH6-W7W9lW0bdobxH-JoG0LJqrkbnvWN3TGKNfVIW3jKg/exec';
 
 async function fetchSheetData(sheetName) {
     try {
