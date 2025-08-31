@@ -10,7 +10,15 @@ function initHeroSlideshow() {
             slides[currentSlide].classList.add('active');
         }
         
+        // Change slide every 5 seconds
         setInterval(nextSlide, 5000);
+        debugLog('✅ تم تهيئة عرض الشرائح');
+    } else if (slides.length === 1) {
+        // إذا كان هناك شريحة واحدة فقط
+        slides[0].classList.add('active');
+        debugLog('⚠️ شريحة خلفية واحدة فقط');
+    } else {
+        debugLog('❌ لا توجد شرائح خلفية');
     }
 }
 
@@ -29,9 +37,12 @@ function initScrollAnimations() {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => {
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(el => {
         observer.observe(el);
     });
+    
+    debugLog(`✅ تم تهيئةanimations لـ ${fadeElements.length} عنصر`);
 }
 
 // Portfolio filtering
@@ -41,11 +52,13 @@ function initPortfolioFiltering() {
     if (filterButtons.length > 0) {
         filterButtons.forEach(btn => {
             btn.addEventListener('click', function() {
+                // Remove active class from all buttons
                 document.querySelectorAll('.filter-btn').forEach(b => {
                     b.classList.remove('active', 'bg-gold', 'text-white');
                     b.classList.add('text-gold');
                 });
                 
+                // Add active class to clicked button
                 this.classList.add('active', 'bg-gold', 'text-white');
                 this.classList.remove('text-gold');
                 
@@ -67,48 +80,74 @@ function initPortfolioFiltering() {
                         }, 300);
                     }
                 });
+                
+                debugLog(`✅ تم تطبيق عامل التصفية: ${filter}`);
             });
         });
+        
+        debugLog(`✅ تم تهيئة ${filterButtons.length} زر تصفية`);
+    } else {
+        debugLog('⚠️ لم يتم العثور على أزرار التصفية');
     }
 }
 
 // Mobile menu toggle
 function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    if (mobileMenuBtn) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
+            debugLog(`📱 تم ${mobileMenu.classList.contains('hidden') ? 'إغلاق' : 'فتح'} القائمة`);
         });
+        
+        debugLog('✅ تم تهيئة قائمة الجوال');
+    } else {
+        debugLog('❌ عناصر قائمة الجوال غير موجودة');
     }
 }
 
 // Smooth scrolling for navigation links
 function initSmoothScrolling() {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (mobileMenu) {
-                    mobileMenu.classList.add('hidden');
-                }
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (navLinks.length > 0) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
                 
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+                if (targetSection) {
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    // Smooth scroll with offset for fixed navbar
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    debugLog(`🔗 التمرين إلى: ${targetId}`);
+                }
+            });
         });
-    });
+        
+        debugLog(`✅ تم تهيئة ${navLinks.length} رابط تنقل`);
+    } else {
+        debugLog('⚠️ لم يتم العثور على روابط التنقل');
+    }
 }
 
 // Contact form handling
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
+    
     if (contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -117,6 +156,7 @@ function initContactForm() {
             const submitText = document.getElementById('submit-text');
             const loadingSpinner = document.getElementById('loading-spinner');
             
+            // Show loading state
             if (submitText) submitText.textContent = 'جاري الإرسال...';
             if (loadingSpinner) loadingSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
@@ -132,30 +172,32 @@ function initContactForm() {
                 });
                 
                 if (response.ok) {
+                    debugLog('✅ تم إرسال النموذج بنجاح');
                     alert('تم إرسال رسالتك بنجاح! سأتواصل معك قريباً.');
                     this.reset();
                 } else {
                     throw new Error('Network response was not ok.');
                 }
             } catch (error) {
+                debugLog(`❌ خطأ في إرسال النموذج: ${error.message}`);
                 alert('حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.');
-                console.error('Error:', error);
             } finally {
+                // Reset loading state
                 if (submitText) submitText.textContent = 'إرسال الرسالة';
                 if (loadingSpinner) loadingSpinner.classList.add('hidden');
                 submitBtn.disabled = false;
             }
         });
+        
+        debugLog('✅ تم تهيئة نموذج الاتصال');
+    } else {
+        debugLog('⚠️ نموذج الاتصال غير موجود');
     }
 }
 
-// ==============================================
-// دالة التهيئة الرئيسية - أضفها هنا في النهاية
-// ==============================================
-
 // دالة لتهيئة كل الرسوم المتحركة والوظائف
 function initAllAnimations() {
-    console.log('بدء تهيئة الرسوم المتحركة...');
+    debugLog('🎬 بدء تهيئة الرسوم المتحركة...');
     
     initHeroSlideshow();
     initScrollAnimations();
@@ -164,10 +206,10 @@ function initAllAnimations() {
     initSmoothScrolling();
     initContactForm();
     
-    console.log('تم تهيئة جميع الرسوم المتحركة والوظائف ✓');
+    debugLog('✅ تم تهيئة جميع الرسوم المتحركة والوظائف');
 }
 
-// جعل الدوال متاحة globally للمساعدة في التصحيح
+// جعل الدوال متاحة globally للتصحيح
 window.initHeroSlideshow = initHeroSlideshow;
 window.initScrollAnimations = initScrollAnimations;
 window.initPortfolioFiltering = initPortfolioFiltering;
@@ -176,4 +218,4 @@ window.initSmoothScrolling = initSmoothScrolling;
 window.initContactForm = initContactForm;
 window.initAllAnimations = initAllAnimations;
 
-console.log('تم تحميل animations.js بنجاح');
+debugLog('✅ تم تحميل animations.js بنجاح');
