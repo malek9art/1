@@ -201,18 +201,50 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        /* تحسينات للتجاوب */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem !important;
+                white-space: normal !important;
+                border-right: none !important;
+                animation: none !important;
+            }
+            .portfolio-filters {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            .service-card, .testimonial-card, .portfolio-item {
+                margin-bottom: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-white text-navy font-arabic">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 gradient-bg shadow-lg">
-        <div class="container mx-auto px-6 py-4">
+        <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <img id="logo-img" src="" alt="Malek Art Logo" class="w-12 h-12 ml-3 rounded-full shadow-lg">
-                    <div class="text-2xl font-bold text-gold font-cairo" id="site-name">Malek.Art</div>
+                    <img id="logo-img" src="https://via.placeholder.com/48" alt="Malek Art Logo" class="w-10 h-10 md:w-12 md:h-12 ml-2 md:ml-3 rounded-full shadow-lg">
+                    <div class="text-xl md:text-2xl font-bold text-gold font-cairo" id="site-name">Malek.Art</div>
                 </div>
-                <div class="hidden md:flex space-x-reverse space-x-8">
+                <div class="hidden md:flex space-x-reverse space-x-6">
                     <a href="#home" class="text-white hover:text-gold transition-colors nav-link">الرئيسية</a>
                     <a href="#about" class="text-white hover:text-gold transition-colors nav-link">من أنا</a>
                     <a href="#services" class="text-white hover:text-gold transition-colors nav-link">الخدمات</a>
@@ -225,22 +257,25 @@
                 </button>
             </div>
             <!-- Mobile Menu -->
-            <div class="md:hidden hidden mt-4" id="mobile-menu">
-                <a href="#home" class="block py-2 text-white hover:text-gold nav-link">الرئيسية</a>
-                <a href="#about" class="block py-2 text-white hover:text-gold nav-link">من أنا</a>
-                <a href="#services" class="block py-2 text-white hover:text-gold nav-link">الخدمات</a>
-                <a href="#portfolio" class="block py-2 text-white hover:text-gold nav-link">المعرض</a>
-                <a href="#testimonials" class="block py-2 text-white hover:text-gold nav-link">آراء العملاء</a>
-                <a href="#contact" class="block py-2 text-white hover:text-gold nav-link">تواصل معي</a>
+            <div class="md:hidden hidden mt-4 bg-navy rounded-lg p-4" id="mobile-menu">
+                <a href="#home" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">الرئيسية</a>
+                <a href="#about" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">من أنا</a>
+                <a href="#services" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">الخدمات</a>
+                <a href="#portfolio" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">المعرض</a>
+                <a href="#testimonials" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">آراء العملاء</a>
+                <a href="#contact" class="block py-3 text-white hover:text-gold nav-link">تواصل معي</a>
             </div>
         </div>
     </nav>
 
     <!-- Home Section -->
-    <section id="home" class="min-h-screen gradient-bg flex items-center relative overflow-hidden">
+    <section id="home" class="min-h-screen gradient-bg flex items-center relative overflow-hidden pt-16">
         <!-- Background Image Slideshow -->
         <div class="absolute inset-0 hero-slideshow" id="hero-slideshow">
             <!-- Slides will be loaded dynamically -->
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80');"></div>
         </div>
         <!-- Dark overlay for better text readability -->
         <div class="absolute inset-0 bg-navy bg-opacity-70"></div>
@@ -253,19 +288,19 @@
                 <i class="fas fa-laptop-code"></i>
             </div>
         </div>
-        <div class="container mx-auto px-6 text-center relative z-10">
+        <div class="container mx-auto px-4 md:px-6 text-center relative z-10">
             <div class="fade-in">
-                <div class="mb-8">
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 font-tajawal text-shadow" id="hero-title">مرحباً بك في مالك أرت</h1>
-                    <div class="typing-animation text-xl md:text-2xl text-gold font-semibold mb-6 inline-block" id="hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
+                <div class="mb-6 md:mb-8">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-tajawal text-shadow hero-title">مرحباً بك في مالك أرت</h1>
+                    <div class="text-xl md:text-2xl text-gold font-semibold mb-6 inline-block hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
                 </div>
-                <p class="text-lg md:text-xl text-light-gold mb-12 max-w-4xl mx-auto leading-relaxed" id="hero-description">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
-                <div class="space-x-reverse space-x-6 flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <a href="#portfolio" class="gold-gradient text-navy px-10 py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-lg">
+                <p class="text-base md:text-lg lg:text-xl text-light-gold mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed" id="hero-description">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#portfolio" class="gold-gradient text-navy px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-base md:text-lg w-full sm:w-auto">
                         <i class="fas fa-eye ml-2"></i>
                         <span id="hero-button1">استكشف أعمالي</span>
                     </a>
-                    <a href="#contact" class="border-2 border-gold text-gold px-10 py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-lg hover-scale">
+                    <a href="#contact" class="border-2 border-gold text-gold px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-base md:text-lg w-full sm:w-auto hover-scale">
                         <i class="fas fa-comments ml-2"></i>
                         <span id="hero-button2">تواصل معي</span>
                     </a>
@@ -277,59 +312,95 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gray-50 relative">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-navy mb-4 font-cairo">من أنا</h2>
+    <section id="about" class="py-16 md:py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4 font-cairo">من أنا</h2>
                 <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
-                <p class="text-gray-600 text-lg">تعرف على مالك وخبرته في عالم التصميم والتطوير</p>
+                <p class="text-gray-600 text-base md:text-lg">تعرف على مالك وخبرته في عالم التصميم والتطوير</p>
             </div>
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="fade-in slide-in-left">
                     <div class="relative">
-                        <div class="w-80 h-80 mx-auto bg-gradient-to-br from-gold via-light-gold to-gold rounded-full flex items-center justify-center shadow-2xl floating">
+                        <div class="w-64 h-64 md:w-80 md:h-80 mx-auto bg-gradient-to-br from-gold via-light-gold to-gold rounded-full flex items-center justify-center shadow-2xl floating">
                             <div class="text-center">
-                                <i class="fas fa-user-tie text-6xl text-navy mb-4"></i>
-                                <div class="text-navy font-bold text-xl">مالك أرت</div>
+                                <i class="fas fa-user-tie text-5xl md:text-6xl text-navy mb-4"></i>
+                                <div class="text-navy font-bold text-lg md:text-xl">مالك أرت</div>
                             </div>
                         </div>
-                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-navy rounded-full flex items-center justify-center pulse-gold">
-                            <i class="fas fa-code text-gold text-2xl"></i>
+                        <div class="absolute -top-4 -right-4 w-16 h-16 md:w-20 md:h-20 bg-navy rounded-full flex items-center justify-center pulse-gold">
+                            <i class="fas fa-code text-gold text-xl md:text-2xl"></i>
                         </div>
-                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gold rounded-full flex items-center justify-center floating" style="animation-delay: -1s;">
-                            <i class="fas fa-palette text-navy text-xl"></i>
+                        <div class="absolute -bottom-4 -left-4 w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center floating" style="animation-delay: -1s;">
+                            <i class="fas fa-palette text-navy text-lg md:text-xl"></i>
                         </div>
                     </div>
                 </div>
                 <div class="fade-in slide-in-right">
-                    <h3 class="text-3xl font-bold text-navy mb-6 font-cairo" id="about-title">مطور ومنسق مشاريع رقمية</h3>
-                    <p class="text-gray-700 mb-8 leading-relaxed text-lg" id="about-description">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
+                    <h3 class="text-2xl md:text-3xl font-bold text-navy mb-6 font-cairo" id="about-title">مطور ومنسق مشاريع رقمية</h3>
+                    <p class="text-gray-700 mb-6 md:mb-8 leading-relaxed text-base md:text-lg" id="about-description">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="skills-container">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8" id="skills-container">
                         <!-- Skills will be loaded dynamically -->
+                        <div class="skill-item bg-white p-4 rounded-lg shadow-lg hover-scale">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-palette text-gold text-xl ml-3"></i>
+                                <span class="font-semibold text-navy">تصميم الجرافيك</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item bg-white p-4 rounded-lg shadow-lg hover-scale">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-code text-gold text-xl ml-3"></i>
+                                <span class="font-semibold text-navy">تطوير الويب</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item bg-white p-4 rounded-lg shadow-lg hover-scale">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-mobile-alt text-gold text-xl ml-3"></i>
+                                <span class="font-semibold text-navy">التصميم المتجاوب</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item bg-white p-4 rounded-lg shadow-lg hover-scale">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-sheet-plastic text-gold text-xl ml-3"></i>
+                                <span class="font-semibold text-navy">جداول البيانات</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: 88%"></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h4 class="text-xl font-bold text-navy mb-4 flex items-center">
+                    <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                        <h4 class="text-lg md:text-xl font-bold text-navy mb-4 flex items-center">
                             <i class="fas fa-heart text-gold ml-2"></i>
                             قيمي الأساسية
                         </h4>
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-3 md:gap-4">
                             <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <i class="fas fa-rocket text-gold text-2xl mb-2"></i>
-                                <div class="font-semibold text-navy">السرعة</div>
+                                <i class="fas fa-rocket text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">السرعة</div>
                             </div>
                             <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <i class="fas fa-expand-arrows-alt text-gold text-2xl mb-2"></i>
-                                <div class="font-semibold text-navy">قابلية التوسع</div>
+                                <i class="fas fa-expand-arrows-alt text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">قابلية التوسع</div>
                             </div>
                             <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <i class="fas fa-cogs text-gold text-2xl mb-2"></i>
-                                <div class="font-semibold text-navy">العملية</div>
+                                <i class="fas fa-cogs text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">العملية</div>
                             </div>
                             <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                <i class="fas fa-users text-gold text-2xl mb-2"></i>
-                                <div class="font-semibold text-navy">خدمة المجتمع</div>
+                                <i class="fas fa-users text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">خدمة المجتمع</div>
                             </div>
                         </div>
                     </div>
@@ -339,7 +410,7 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-white relative">
+    <section id="services" class="py-16 md:py-20 bg-white relative">
         <div class="absolute inset-0 opacity-5">
             <div class="floating absolute top-10 left-10 text-gold text-4xl">
                 <i class="fas fa-lightbulb"></i>
@@ -348,22 +419,52 @@
                 <i class="fas fa-rocket"></i>
             </div>
         </div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-20 fade-in">
-                <h2 class="text-4xl font-bold text-navy mb-4 font-tajawal">خدماتي</h2>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4 font-tajawal">خدماتي</h2>
                 <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
-                <p class="text-gray-600 text-lg max-w-2xl mx-auto">نقدم مجموعة شاملة من الخدمات الرقمية لتلبية احتياجات مشروعك</p>
+                <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">نقدم مجموعة شاملة من الخدمات الرقمية لتلبية احتياجات مشروعك</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-container">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-container">
                 <!-- Services will be loaded dynamically -->
+                <div class="service-card bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl hover-scale shadow-xl border border-gray-100">
+                    <div class="w-16 h-16 md:w-20 md:h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -0s;">
+                        <i class="fas fa-palette text-navy text-2xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-4 text-center">هوية بصرية</h3>
+                    <p class="text-gray-600 text-center mb-4">تصميم هوية بصرية متكاملة تعبر عن علامتك التجارية وتجذب عملاءك</p>
+                    <div class="text-center">
+                        <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">احترافي</span>
+                    </div>
+                </div>
+                <div class="service-card bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl hover-scale shadow-xl border border-gray-100">
+                    <div class="w-16 h-16 md:w-20 md:h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -1s;">
+                        <i class="fas fa-desktop text-navy text-2xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-4 text-center">مواقع إلكترونية</h3>
+                    <p class="text-gray-600 text-center mb-4">تصميم وتطوير مواقع إلكترونية متجاوبة وسريعة تحسن وجودك الرقمي</p>
+                    <div class="text-center">
+                        <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">متكامل</span>
+                    </div>
+                </div>
+                <div class="service-card bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl hover-scale shadow-xl border border-gray-100">
+                    <div class="w-16 h-16 md:w-20 md:h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -2s;">
+                        <i class="fas fa-file-alt text-navy text-2xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-4 text-center">سير ذاتية</h3>
+                    <p class="text-gray-600 text-center mb-4">تصميم سير ذاتية إحترافية وجذابة تبرز مهاراتك وخبراتك</p>
+                    <div class="text-center">
+                        <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">مميز</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Call to Action -->
-            <div class="text-center mt-16 fade-in">
-                <div class="bg-gradient-to-r from-navy to-gray-800 p-8 rounded-2xl shadow-2xl">
-                    <h3 class="text-3xl font-bold text-white mb-4 font-cairo">هل لديك مشروع في ذهنك؟</h3>
-                    <p class="text-light-gold mb-6 text-lg">دعنا نحوله إلى واقع رقمي مذهل</p>
-                    <a href="#contact" class="gold-gradient text-navy px-8 py-4 rounded-full font-bold hover-scale shadow-lg text-lg inline-block">
+            <div class="text-center mt-12 md:mt-16 fade-in">
+                <div class="bg-gradient-to-r from-navy to-gray-800 p-6 md:p-8 rounded-xl md:rounded-2xl shadow-2xl">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 font-cairo">هل لديك مشروع في ذهنك؟</h3>
+                    <p class="text-light-gold mb-6 text-base md:text-lg">دعنا نحوله إلى واقع رقمي مذهل</p>
+                    <a href="#contact" class="gold-gradient text-navy px-6 py-3 md:px-8 md:py-4 rounded-full font-bold hover-scale shadow-lg text-base md:text-lg inline-block">
                         <i class="fas fa-rocket ml-2"></i>
                         ابدأ مشروعك الآن
                     </a>
@@ -373,7 +474,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-gradient-to-br from-navy to-gray-800 relative overflow-hidden">
+    <section id="testimonials" class="py-16 md:py-20 bg-gradient-to-br from-navy to-gray-800 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="floating absolute top-16 left-16 text-gold text-5xl">
                 <i class="fas fa-quote-right"></i>
@@ -382,85 +483,196 @@
                 <i class="fas fa-star"></i>
             </div>
         </div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white mb-4 font-tajawal">آراء العملاء</h2>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-tajawal">آراء العملاء</h2>
                 <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
-                <p class="text-light-gold text-lg">ما يقوله عملاؤنا عن تجربتهم معنا</p>
+                <p class="text-light-gold text-base md:text-lg">ما يقوله عملاؤنا عن تجربتهم معنا</p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonials-container">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="testimonials-container">
                 <!-- Testimonials will be loaded dynamically -->
+                <div class="testimonial-card p-6 md:p-8 rounded-xl shadow-2xl hover-scale fade-in">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-user text-navy text-lg md:text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy text-lg">أحمد السعدي</h4>
+                            <p class="text-gray-600">صاحب مشروع</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"تعاملت مع مالك لتصميم هوية بصرية لمشروعي وكانت النتيجة رائعة، احترافية عالية وتنفيذ في الوقت المحدد."</p>
+                </div>
+                <div class="testimonial-card p-6 md:p-8 rounded-xl shadow-2xl hover-scale fade-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-user text-navy text-lg md:text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy text-lg">سارة محمد</h4>
+                            <p class="text-gray-600">مديرة تسويق</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"تميز مالك بالإبداع والالتزام بالمواعيد، أنشأ لنا موقعًا إلكترونيًا ساهم في زيادة مبيعاتنا بنسبة 40%."</p>
+                </div>
+                <div class="testimonial-card p-6 md:p-8 rounded-xl shadow-2xl hover-scale fade-in" style="animation-delay: 0.4s;">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-user text-navy text-lg md:text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy text-lg">خالد الحربي</h4>
+                            <p class="text-gray-600">رائد أعمال</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                        <i class="fas fa-star text-gold"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"سيرة الذاتية التي صممها لي مالك كانت السبب في حصولي على وظيفة أحلامي، تصميم إحترافي يبرز مهاراتي بشكل رائع."</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-navy mb-4">معرض الأعمال</h2>
-                <div class="w-20 h-1 gold-gradient mx-auto mb-8"></div>
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="all">الكل</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="هوية بصرية">هوية بصرية</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواد تسويقية">مواد تسويقية</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواقع">مواقع</button>
-                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="دعوات">دعوات</button>
+    <section id="portfolio" class="py-16 md:py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4">معرض الأعمال</h2>
+                <div class="w-20 h-1 gold-gradient mx-auto mb-6 md:mb-8"></div>
+                <div class="flex flex-wrap justify-center gap-3 mb-6 md:mb-8 portfolio-filters">
+                    <button class="filter-btn active px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold bg-gold text-white transition-all" data-filter="all">الكل</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="هوية بصرية">هوية بصرية</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواد تسويقية">مواد تسويقية</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواقع">مواقع</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="دعوات">دعوات</button>
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-container">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="portfolio-container">
                 <!-- Portfolio items will be loaded dynamically -->
+                <div class="portfolio-item" data-category="هوية بصرية">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <div class="h-48 md:h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png'); background-size: cover; background-position: center;">
+                            <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
+                                <i class="fas fa-palette text-gold text-3xl md:text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 md:p-6">
+                            <h3 class="text-lg md:text-xl font-bold text-navy mb-2">هوية بصرية لمطعم</h3>
+                            <p class="text-gray-600 mb-4 text-sm md:text-base">تصميم هوية بصرية متكاملة لمطعم فاخر تشمل الشعار والألوان والمواد الدعائية</p>
+                            <a href="#" class="text-gold hover:text-navy font-semibold text-sm md:text-base">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="مواقع">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <div class="h-48 md:h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                            <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
+                                <i class="fas fa-laptop text-gold text-3xl md:text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 md:p-6">
+                            <h3 class="text-lg md:text-xl font-bold text-navy mb-2">موقع متجر إلكتروني</h3>
+                            <p class="text-gray-600 mb-4 text-sm md:text-base">تصميم وتطوير متجر إلكتروني متكامل مع نظام دفع وإدارة منتجات</p>
+                            <a href="#" class="text-gold hover:text-navy font-semibold text-sm md:text-base">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="دعوات">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <div class="h-48 md:h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                            <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
+                                <i class="fas fa-envelope-open-text text-gold text-3xl md:text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 md:p-6">
+                            <h3 class="text-lg md:text-xl font-bold text-navy mb-2">دعوات زفاف</h3>
+                            <p class="text-gray-600 mb-4 text-sm md:text-base">تصميم دعوات زفاف فاخرة ومطبوعة بتقنية عالية الجودة مع ظروف مخصصة</p>
+                            <a href="#" class="text-gold hover:text-navy font-semibold text-sm md:text-base">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 gradient-bg">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white mb-4">تواصل معي</h2>
+    <section id="contact" class="py-16 md:py-20 gradient-bg">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">تواصل معي</h2>
                 <div class="w-20 h-1 gold-gradient mx-auto"></div>
             </div>
-            <div class="grid md:grid-cols-2 gap-12">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                 <div class="fade-in">
-                    <h3 class="text-2xl font-bold text-white mb-6">لنبدأ مشروعك القادم</h3>
-                    <p class="text-light-gold mb-8">أنا هنا لتحويل أفكارك إلى واقع فني مذهل. تواصل معي الآن ولنناقش مشروعك</p>
-                    <div class="space-y-6">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">لنبدأ مشروعك القادم</h3>
+                    <p class="text-light-gold mb-6 md:mb-8">أنا هنا لتحويل أفكارك إلى واقع فني مذهل. تواصل معي الآن ولنناقش مشروعك</p>
+                    <div class="space-y-4 md:space-y-6">
                         <div class="flex items-center hover-scale cursor-pointer">
-                            <i class="fas fa-envelope text-gold text-xl ml-4"></i>
+                            <i class="fas fa-envelope text-gold text-lg md:text-xl ml-3 md:ml-4"></i>
                             <a href="mailto:malek9art@gmail.com" class="text-white hover:text-gold transition-colors" id="contact-email">malek9art@gmail.com</a>
                         </div>
                         <div class="flex items-center hover-scale cursor-pointer">
-                            <i class="fas fa-phone text-gold text-xl ml-4"></i>
+                            <i class="fas fa-phone text-gold text-lg md:text-xl ml-3 md:ml-4"></i>
                             <a href="tel:+967783720851" class="text-white hover:text-gold transition-colors" id="contact-phone">+967 783 720 851</a>
                         </div>
                         <div class="flex items-center hover-scale cursor-pointer">
-                            <i class="fab fa-whatsapp text-gold text-xl ml-4"></i>
+                            <i class="fab fa-whatsapp text-gold text-lg md:text-xl ml-3 md:ml-4"></i>
                             <a href="https://wa.me/967783720851" target="_blank" class="text-white hover:text-gold transition-colors">واتساب مباشر</a>
                         </div>
                         <div class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-gold text-xl ml-4"></i>
-                            <span class="text-white" id="contact-address">تعز، الجمهورية اليمنية</span>
+                            <i class="fas fa-map-marker-alt text-gold text-lg md:text-xl ml-3 md:ml-4"></i>
+                            <span class="text-white" id="contact-address">صنعاء، الجمهورية اليمنية</span>
                         </div>
                     </div>
-                    <div class="flex space-x-reverse space-x-4 mt-8" id="social-media-container">
+                    <div class="flex space-x-reverse space-x-3 md:space-x-4 mt-6 md:mt-8" id="social-media-container">
                         <!-- Social media links will be loaded dynamically -->
+                        <a href="#" class="w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg">
+                            <i class="fab fa-facebook text-lg md:text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg">
+                            <i class="fab fa-instagram text-lg md:text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg">
+                            <i class="fab fa-twitter text-lg md:text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg">
+                            <i class="fab fa-linkedin text-lg md:text-xl"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="fade-in">
-                    <form class="bg-white p-8 rounded-lg shadow-lg" id="contact-form" action="https://formspree.io/f/mjvnqkqv" method="POST">
-                        <div class="mb-6">
-                            <label class="block text-navy font-semibold mb-2">الاسم</label>
-                            <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                    <form class="bg-white p-6 md:p-8 rounded-lg shadow-lg" id="contact-form" action="https://formspree.io/f/mjvnqkqv" method="POST">
+                        <div class="mb-4 md:mb-6">
+                            <label class="block text-navy font-semibold mb-2 text-sm md:text-base">الاسم</label>
+                            <input type="text" name="name" required class="w-full px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold text-sm md:text-base">
                         </div>
-                        <div class="mb-6">
-                            <label class="block text-navy font-semibold mb-2">البريد الإلكتروني</label>
-                            <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                        <div class="mb-4 md:mb-6">
+                            <label class="block text-navy font-semibold mb-2 text-sm md:text-base">البريد الإلكتروني</label>
+                            <input type="email" name="email" required class="w-full px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold text-sm md:text-base">
                         </div>
-                        <div class="mb-6">
-                            <label class="block text-navy font-semibold mb-2">نوع المشروع</label>
-                            <select name="project-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+                        <div class="mb-4 md:mb-6">
+                            <label class="block text-navy font-semibold mb-2 text-sm md:text-base">نوع المشروع</label>
+                            <select name="project-type" class="w-full px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold text-sm md:text-base">
                                 <option value="">اختر نوع المشروع</option>
                                 <option value="هوية بصرية">هوية بصرية</option>
                                 <option value="مواد تسويقية">مواد تسويقية</option>
@@ -471,11 +683,11 @@
                                 <option value="other">أخرى</option>
                             </select>
                         </div>
-                        <div class="mb-6">
-                            <label class="block text-navy font-semibold mb-2">الرسالة</label>
-                            <textarea name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold"></textarea>
+                        <div class="mb-4 md:mb-6">
+                            <label class="block text-navy font-semibold mb-2 text-sm md:text-base">الرسالة</label>
+                            <textarea name="message" rows="4" required class="w-full px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold text-sm md:text-base"></textarea>
                         </div>
-                        <button type="submit" class="w-full gold-gradient text-navy py-3 rounded-lg font-bold hover-scale flex items-center justify-center">
+                        <button type="submit" class="w-full gold-gradient text-navy py-2 md:py-3 rounded-lg font-bold hover-scale flex items-center justify-center text-sm md:text-base">
                             <span id="submit-text">إرسال الرسالة</span>
                             <div class="loading-spinner ml-2 hidden" id="loading-spinner"></div>
                         </button>
@@ -486,13 +698,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-navy py-8">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex items-center justify-center mb-4">
-                <img id="footer-logo" src="" alt="Malek Art Logo" class="w-10 h-10 ml-3 rounded-full shadow-lg">
-                <div class="text-gold text-2xl font-bold font-cairo" id="footer-site-name">Malek Art مالك أرت</div>
+    <footer class="bg-navy py-6 md:py-8">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <div class="flex items-center justify-center mb-3 md:mb-4">
+                <img id="footer-logo" src="https://via.placeholder.com/40" alt="Malek Art Logo" class="w-8 h-8 md:w-10 md:h-10 ml-2 md:ml-3 rounded-full shadow-lg">
+                <div class="text-gold text-xl md:text-2xl font-bold font-cairo" id="footer-site-name">Malek.Art</div>
             </div>
-            <p class="text-light-gold">© 2024 جميع الحقوق محفوظة - مالك أرت </p>
+            <p class="text-light-gold text-sm md:text-base">© 2024 جميع الحقوق محفوظة - مالك للفنون الرقمية</p>
         </div>
     </footer>
 
@@ -500,7 +712,7 @@
     <script>
         // Google Sheets IDs and URLs
         const SHEET_ID = '1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ';
-        const SHEET_SETTINGS = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الاعدادات';
+        const SHEET_SETTINGS = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الإعدادات';
         const SHEET_HERO = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=الرئيسية';
         const SHEET_HERO_SLIDES = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=صور الهيرو';
         const SHEET_ABOUT = 'https://docs.google.com/spreadsheets/d/1QxNNVktopMM9_Npgy1AoP2RTZHZnvElIPAyO5d0YmFQ/gviz/tq?tqx=out:csv&sheet=من أنا';
@@ -540,6 +752,9 @@
         async function fetchSheetData(url) {
             try {
                 const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const csvText = await response.text();
                 return parseCSV(csvText);
             } catch (error) {
@@ -555,15 +770,16 @@
             
             try {
                 // Load settings
-                // شعار ثابت (ضع رابط الشعار الخاص بك)
-const staticLogo = "https://i.ibb.co/Vc7SrDHv/M-20250624-014050.png";
-document.getElementById('logo-img').src = staticLogo;
-document.getElementById('footer-logo').src = staticLogo;
-
-// اسم الموقع ثابت (ضع اسم الموقع الخاص بك)
-const staticSiteName = "Malek Art مالك أرت";
-document.getElementById('site-name').textContent = staticSiteName;
-document.getElementById('footer-site-name').textContent = staticSiteName;
+                const settings = await fetchSheetData(SHEET_SETTINGS);
+                if (settings.length > 0) {
+                    document.getElementById('site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
+                    document.getElementById('footer-site-name').textContent = settings[0]['اسم الموقع'] || 'Malek.Art';
+                    
+                    const logoUrl = settings[0]['شعار الموقع'];
+                    if (logoUrl) {
+                        document.getElementById('logo-img').src = logoUrl;
+                        document.getElementById('footer-logo').src = logoUrl;
+                    }
                     
                     document.getElementById('contact-email').textContent = settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com';
                     document.getElementById('contact-email').href = `mailto:${settings[0]['البريد الإلكتروني'] || 'malek9art@gmail.com'}`;
@@ -571,7 +787,7 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
                     document.getElementById('contact-phone').textContent = settings[0]['هاتف التواصل'] || '+967 783 720 851';
                     document.getElementById('contact-phone').href = `tel:${settings[0]['هاتف التواصل'] || '+967783720851'}`;
                     
-                    document.getElementById('contact-address').textContent = settings[0]['العنوان'] || 'تعز، الجمهورية اليمنية';
+                    document.getElementById('contact-address').textContent = settings[0]['العنوان'] || 'صنعاء، الجمهورية اليمنية';
                 }
 
                 // Load hero section
@@ -586,16 +802,18 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
                 // Load hero slides
                 const heroSlides = await fetchSheetData(SHEET_HERO_SLIDES);
                 const slideshowContainer = document.getElementById('hero-slideshow');
-                slideshowContainer.innerHTML = '';
-                
-                heroSlides.forEach((slide, index) => {
-                    if (slide['رابط الصورة']) {
-                        const slideDiv = document.createElement('div');
-                        slideDiv.className = `hero-slide ${index === 0 ? 'active' : ''}`;
-                        slideDiv.style.backgroundImage = `url('${slide['رابط الصورة']}')`;
-                        slideshowContainer.appendChild(slideDiv);
-                    }
-                });
+                if (heroSlides.length > 0) {
+                    slideshowContainer.innerHTML = '';
+                    
+                    heroSlides.forEach((slide, index) => {
+                        if (slide['رابط الصورة']) {
+                            const slideDiv = document.createElement('div');
+                            slideDiv.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                            slideDiv.style.backgroundImage = `url('${slide['رابط الصورة']}')`;
+                            slideshowContainer.appendChild(slideDiv);
+                        }
+                    });
+                }
 
                 // Load about section
                 const aboutData = await fetchSheetData(SHEET_ABOUT);
@@ -607,135 +825,147 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
                 // Load skills
                 const skillsData = await fetchSheetData(SHEET_SKILLS);
                 const skillsContainer = document.getElementById('skills-container');
-                skillsContainer.innerHTML = '';
-                
-                skillsData.forEach(skill => {
-                    if (skill['اسم المهارة'] && skill['النسبة']) {
-                        const skillItem = document.createElement('div');
-                        skillItem.className = 'skill-item bg-white p-4 rounded-lg shadow-lg hover-scale';
-                        skillItem.innerHTML = `
-                            <div class="flex items-center mb-3">
-                                <i class="fas fa-palette text-gold text-xl ml-3"></i>
-                                <span class="font-semibold text-navy">${skill['اسم المهارة']}</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3">
-                                <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: ${skill['النسبة']}%"></div>
-                            </div>
-                        `;
-                        skillsContainer.appendChild(skillItem);
-                    }
-                });
+                if (skillsData.length > 0) {
+                    skillsContainer.innerHTML = '';
+                    
+                    skillsData.forEach(skill => {
+                        if (skill['اسم المهارة'] && skill['النسبة']) {
+                            const skillItem = document.createElement('div');
+                            skillItem.className = 'skill-item bg-white p-4 rounded-lg shadow-lg hover-scale';
+                            skillItem.innerHTML = `
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-palette text-gold text-xl ml-3"></i>
+                                    <span class="font-semibold text-navy">${skill['اسم المهارة']}</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-gold h-3 rounded-full transition-all duration-1000" style="width: ${skill['النسبة']}%"></div>
+                                </div>
+                            `;
+                            skillsContainer.appendChild(skillItem);
+                        }
+                    });
+                }
 
                 // Load services
                 const servicesData = await fetchSheetData(SHEET_SERVICES);
                 const servicesContainer = document.getElementById('services-container');
-                servicesContainer.innerHTML = '';
-                
-                servicesData.forEach((service, index) => {
-                    if (service['اسم الخدمة'] && service['الوصف']) {
-                        const serviceCard = document.createElement('div');
-                        serviceCard.className = 'service-card bg-gradient-to-br from-gray-50 to-white p-8 rounded-xl hover-scale shadow-xl border border-gray-100';
-                        serviceCard.innerHTML = `
-                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -${index}s;">
-                                <i class="${service['الأيقونة'] || 'fas fa-palette'} text-navy text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-navy mb-4 text-center">${service['اسم الخدمة']}</h3>
-                            <p class="text-gray-600 text-center mb-4">${service['الوصف']}</p>
-                            <div class="text-center">
-                                <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">${service['التصنيف'] || 'احترافي'}</span>
-                            </div>
-                        `;
-                        servicesContainer.appendChild(serviceCard);
-                    }
-                });
+                if (servicesData.length > 0) {
+                    servicesContainer.innerHTML = '';
+                    
+                    servicesData.forEach((service, index) => {
+                        if (service['اسم الخدمة'] && service['الوصف']) {
+                            const serviceCard = document.createElement('div');
+                            serviceCard.className = 'service-card bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl hover-scale shadow-xl border border-gray-100';
+                            serviceCard.innerHTML = `
+                                <div class="w-16 h-16 md:w-20 md:h-20 gold-gradient rounded-full flex items-center justify-center mb-6 mx-auto floating" style="animation-delay: -${index}s;">
+                                    <i class="${service['الأيقونة'] || 'fas fa-palette'} text-navy text-2xl md:text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-navy mb-4 text-center">${service['اسم الخدمة']}</h3>
+                                <p class="text-gray-600 text-center mb-4">${service['الوصف']}</p>
+                                <div class="text-center">
+                                    <span class="inline-block bg-gold text-navy px-3 py-1 rounded-full text-sm font-semibold">${service['التصنيف'] || 'احترافي'}</span>
+                                </div>
+                            `;
+                            servicesContainer.appendChild(serviceCard);
+                        }
+                    });
+                }
 
                 // Load testimonials
                 const testimonialsData = await fetchSheetData(SHEET_TESTIMONIALS);
                 const testimonialsContainer = document.getElementById('testimonials-container');
-                testimonialsContainer.innerHTML = '';
-                
-                testimonialsData.forEach((testimonial, index) => {
-                    if (testimonial['اسم العميل'] && testimonial['التعليق']) {
-                        const testimonialCard = document.createElement('div');
-                        testimonialCard.className = 'testimonial-card p-8 rounded-xl shadow-2xl hover-scale fade-in';
-                        testimonialCard.style.animationDelay = `${index * 0.2}s`;
-                        
-                        // Generate star rating
-                        let starsHtml = '';
-                        const rating = parseInt(testimonial['التقييم']) || 5;
-                        for (let i = 0; i < rating; i++) {
-                            starsHtml += '<i class="fas fa-star text-gold"></i>';
+                if (testimonialsData.length > 0) {
+                    testimonialsContainer.innerHTML = '';
+                    
+                    testimonialsData.forEach((testimonial, index) => {
+                        if (testimonial['اسم العميل'] && testimonial['التعليق']) {
+                            const testimonialCard = document.createElement('div');
+                            testimonialCard.className = 'testimonial-card p-6 md:p-8 rounded-xl shadow-2xl hover-scale fade-in';
+                            testimonialCard.style.animationDelay = `${index * 0.2}s`;
+                            
+                            // Generate star rating
+                            let starsHtml = '';
+                            const rating = parseInt(testimonial['التقييم']) || 5;
+                            for (let i = 0; i < rating; i++) {
+                                starsHtml += '<i class="fas fa-star text-gold"></i>';
+                            }
+                            
+                            testimonialCard.innerHTML = `
+                                <div class="flex items-center mb-6">
+                                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center ml-4">
+                                        <i class="fas fa-user text-navy text-lg md:text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-navy text-lg">${testimonial['اسم العميل']}</h4>
+                                        <p class="text-gray-600">${testimonial['الوظيفة'] || 'عميل'}</p>
+                                    </div>
+                                </div>
+                                <div class="flex mb-4">
+                                    ${starsHtml}
+                                </div>
+                                <p class="text-gray-700 italic">"${testimonial['التعليق']}"</p>
+                            `;
+                            testimonialsContainer.appendChild(testimonialCard);
                         }
-                        
-                        testimonialCard.innerHTML = `
-                            <div class="flex items-center mb-6">
-                                <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center ml-4">
-                                    <i class="fas fa-user text-navy text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-navy text-lg">${testimonial['اسم العميل']}</h4>
-                                    <p class="text-gray-600">${testimonial['الوظيفة'] || 'عميل'}</p>
-                                </div>
-                            </div>
-                            <div class="flex mb-4">
-                                ${starsHtml}
-                            </div>
-                            <p class="text-gray-700 italic">"${testimonial['التعليق']}"</p>
-                        `;
-                        testimonialsContainer.appendChild(testimonialCard);
-                    }
-                });
+                    });
+                }
 
                 // Load portfolio
                 const portfolioData = await fetchSheetData(SHEET_PORTFOLIO);
                 const portfolioContainer = document.getElementById('portfolio-container');
-                portfolioContainer.innerHTML = '';
-                
-                portfolioData.forEach(project => {
-                    if (project['اسم المشروع'] && project['الوصف']) {
-                        const portfolioItem = document.createElement('div');
-                        portfolioItem.className = 'portfolio-item';
-                        portfolioItem.setAttribute('data-category', project['التصنيف'] || 'هوية بصرية');
-                        
-                        portfolioItem.innerHTML = `
-                            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                                <div class="h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('${project['الصورة'] || 'https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png'}'); background-size: cover; background-position: center;">
-                                    <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
-                                        <i class="fas fa-palette text-gold text-4xl"></i>
+                if (portfolioData.length > 0) {
+                    portfolioContainer.innerHTML = '';
+                    
+                    portfolioData.forEach(project => {
+                        if (project['اسم المشروع'] && project['الوصف']) {
+                            const portfolioItem = document.createElement('div');
+                            portfolioItem.className = 'portfolio-item';
+                            portfolioItem.setAttribute('data-category', project['التصنيف'] || 'هوية بصرية');
+                            
+                            portfolioItem.innerHTML = `
+                                <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                                    <div class="h-48 md:h-64 bg-gradient-to-br from-navy to-gray-700 flex items-center justify-center" style="background-image: url('${project['الصورة'] || 'https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png'}'); background-size: cover; background-position: center;">
+                                        <div class="bg-black bg-opacity-40 w-full h-full flex items-center justify-center">
+                                            <i class="fas fa-palette text-gold text-3xl md:text-4xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 md:p-6">
+                                        <h3 class="text-lg md:text-xl font-bold text-navy mb-2">${project['اسم المشروع']}</h3>
+                                        <p class="text-gray-600 mb-4 text-sm md:text-base">${project['الوصف']}</p>
+                                        <a href="#" class="text-gold hover:text-navy font-semibold text-sm md:text-base">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
                                     </div>
                                 </div>
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold text-navy mb-2">${project['اسم المشروع']}</h3>
-                                    <p class="text-gray-600 mb-4">${project['الوصف']}</p>
-                                    <a href="#" class="text-gold hover:text-navy font-semibold">عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i></a>
-                                </div>
-                            </div>
-                        `;
-                        portfolioContainer.appendChild(portfolioItem);
-                    }
-                });
+                            `;
+                            portfolioContainer.appendChild(portfolioItem);
+                        }
+                    });
+                }
 
                 // Load social media
                 const socialData = await fetchSheetData(SHEET_SOCIAL);
                 const socialContainer = document.getElementById('social-media-container');
-                socialContainer.innerHTML = '';
-                
-                socialData.forEach(social => {
-                    if (social['المنصة'] && social['الرابط']) {
-                        const socialLink = document.createElement('a');
-                        socialLink.href = social['الرابط'];
-                        socialLink.target = '_blank';
-                        socialLink.className = 'w-14 h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg';
-                        socialLink.innerHTML = `<i class="${social['الأيقونة'] || 'fab fa-facebook'} text-xl"></i>`;
-                        socialContainer.appendChild(socialLink);
-                    }
-                });
+                if (socialData.length > 0) {
+                    socialContainer.innerHTML = '';
+                    
+                    socialData.forEach(social => {
+                        if (social['المنصة'] && social['الرابط']) {
+                            const socialLink = document.createElement('a');
+                            socialLink.href = social['الرابط'];
+                            socialLink.target = '_blank';
+                            socialLink.className = 'w-10 h-10 md:w-14 md:h-14 bg-gold rounded-full flex items-center justify-center text-navy hover:bg-light-gold transition-all hover-scale shadow-lg';
+                            socialLink.innerHTML = `<i class="${social['الأيقونة'] || 'fab fa-facebook'} text-lg md:text-xl"></i>`;
+                            socialContainer.appendChild(socialLink);
+                        }
+                    });
+                }
 
                 // Initialize animations and functionality after content is loaded
                 initializeSiteFunctionality();
 
             } catch (error) {
                 console.error('Error loading data:', error);
+                // Initialize with default content if there's an error
+                initializeSiteFunctionality();
             }
         }
 
@@ -744,16 +974,18 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
             // Hero slideshow functionality
             function initHeroSlideshow() {
                 const slides = document.querySelectorAll('.hero-slide');
-                let currentSlide = 0;
-                
-                function nextSlide() {
-                    slides[currentSlide].classList.remove('active');
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    slides[currentSlide].classList.add('active');
+                if (slides.length > 0) {
+                    let currentSlide = 0;
+                    
+                    function nextSlide() {
+                        slides[currentSlide].classList.remove('active');
+                        currentSlide = (currentSlide + 1) % slides.length;
+                        slides[currentSlide].classList.add('active');
+                    }
+                    
+                    // Change slide every 5 seconds
+                    setInterval(nextSlide, 5000);
                 }
-                
-                // Change slide every 5 seconds
-                setInterval(nextSlide, 5000);
             }
             
             // Initialize slideshow when page loads
@@ -779,36 +1011,6 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
                     }
                 });
             });
-
-            // Typing animation for hero subtitle
-            function typeWriter(element, text, speed = 100) {
-                let i = 0;
-                element.innerHTML = '';
-                element.style.borderRight = '3px solid #d4af37';
-                
-                function type() {
-                    if (i < text.length) {
-                        element.innerHTML += text.charAt(i);
-                        i++;
-                        setTimeout(type, speed);
-                    } else {
-                        // Blinking cursor effect
-                        setInterval(() => {
-                            element.style.borderRight = element.style.borderRight === '3px solid transparent' 
-                                ? '3px solid #d4af37' 
-                                : '3px solid transparent';
-                        }, 750);
-                    }
-                }
-                type();
-            }
-
-            // Start typing animation
-            const heroSubtitle = document.getElementById('hero-subtitle');
-            const text = heroSubtitle.textContent;
-            setTimeout(() => {
-                typeWriter(heroSubtitle, text, 80);
-            }, 1000);
 
             // Mobile menu toggle
             document.getElementById('mobile-menu-btn').addEventListener('click', function() {
@@ -912,4 +1114,4 @@ document.getElementById('footer-site-name').textContent = staticSiteName;
         document.addEventListener('DOMContentLoaded', loadAllData);
     </script>
 </body>
-</html>
+    </html>
