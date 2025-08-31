@@ -2,29 +2,192 @@
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem !important;
+        line-height: 1.2;
     }
+    
     .hero-subtitle {
         font-size: 1.2rem !important;
         white-space: normal !important;
+        line-height: 1.4;
     }
+    
     .portfolio-filters {
         flex-wrap: wrap;
         gap: 0.5rem;
+        justify-content: center;
     }
+    
     .filter-btn {
         padding: 0.5rem 1rem !important;
         font-size: 0.9rem;
+        margin: 0.25rem;
+    }
+    
+    /* تحسينات إضافية للجوال */
+    .service-card, .testimonial-card, .portfolio-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-slideshow .hero-slide {
+        background-position: center center;
+    }
+    
+    /* تحسين النصوص للشاشات الصغيرة */
+    .text-xl {
+        font-size: 1.1rem !important;
+    }
+    
+    .text-2xl {
+        font-size: 1.3rem !important;
+    }
+    
+    .text-3xl {
+        font-size: 1.5rem !important;
     }
 }
+
 @media (max-width: 640px) {
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    .grid-cols-2 {
+    
+    .grid-cols-2, .md\:grid-cols-2 {
         grid-template-columns: 1fr !important;
     }
-    .service-card, .testimonial-card, .portfolio-item {
-        margin-bottom: 1.5rem;
+    
+    .lg\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* تحسينات للشاشات الصغيرة جدًا */
+    .text-4xl {
+        font-size: 1.875rem !important;
+        line-height: 1.2;
+    }
+    
+    .text-6xl, .text-7xl {
+        font-size: 2.25rem !important;
+        line-height: 1.1;
+    }
+    
+    .py-16 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    .py-20 {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+    
+    /* تحسين المسافات للجوال */
+    .p-8 {
+        padding: 1.5rem !important;
+    }
+    
+    .p-6 {
+        padding: 1rem !important;
+    }
+    
+    /* تحسين أحجام الصور */
+    .h-64 {
+        height: 12rem !important;
+    }
+    
+    .h-48 {
+        height: 10rem !important;
+    }
+}
+
+/* تحسينات خاصة للشاشات المتوسطة */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    /* تحسين النصوص للشاشات المتوسطة */
+    .text-7xl {
+        font-size: 3.5rem !important;
+    }
+    
+    .text-6xl {
+        font-size: 3rem !important;
+    }
+}
+
+/* تحسينات للشاشات الكبيرة */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* تحسينات للطباعة */
+@media print {
+    .gradient-bg, .gold-gradient {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .hero-slideshow, #mobile-menu-btn, .portfolio-filters,
+    #mobile-debug, button[onclick*="forceRefresh"] {
+        display: none !important;
+    }
+    
+    /* تحسين النصوص للطباعة */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    .text-7xl, .text-6xl {
+        font-size: 24pt !important;
+    }
+    
+    .text-4xl, .text-3xl {
+        font-size: 18pt !important;
+    }
+}
+
+/* تحسينات خاصة للتابلت */
+@media (max-width: 1024px) and (min-width: 768px) {
+    /* تحسين أحجام الخطوط للتابلت */
+    .hero-title {
+        font-size: 3.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.4rem !important;
+    }
+    
+    /* تحسين المسافات */
+    .section-py {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+/* تحسينات للوضع الأفقي في التابلت */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+    
+    .min-h-screen {
+        min-height: auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 }
