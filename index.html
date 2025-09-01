@@ -30,68 +30,965 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/responsive.css">
+    <style>
+        body { 
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif; 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .font-cairo { font-family: 'Cairo', sans-serif; }
+        .font-tajawal { font-family: 'Tajawal', sans-serif; }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3748 50%, #1a1f36 100%);
+            position: relative;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23d4af37" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23d4af37" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23f4e4a6" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        .gold-gradient { 
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        .hover-scale { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .hover-scale:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+        }
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        .fade-in.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .portfolio-item { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: 1;
+        }
+        .portfolio-item:hover::before {
+            left: 100%;
+        }
+        .portfolio-item:hover { 
+            transform: translateY(-15px) scale(1.02); 
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.25);
+        }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .floating { animation: float 6s ease-in-out infinite; }
+        .pulse-gold { animation: pulse 2s infinite; }
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(212, 175, 55, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .service-card:hover::after {
+            transform: translateX(100%);
+        }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .hero-slideshow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--navy);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem !important;
+                white-space: normal !important;
+                line-height: 1.4;
+            }
+            .portfolio-filters {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .filter-btn {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.9rem;
+                margin: 0.25rem;
+            }
+        }
+        
+        #loading-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #d4af37;
+            z-index: 10000;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+    </style>
 </head>
 <body class="bg-white text-navy font-arabic">
-    <!-- الهيكل الأساسي للموقع هنا -->
-    
-    <!-- JavaScript Files -->
-    <script src="scripts/sheets-api.js"></script>
-    <script src="scripts/animations.js"></script>
-    <script src="scripts/main.js"></script>
-<!-- بديل الطوارئ للشاشة البيضاء -->
-<div id="fallback-content" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1a1f36 0%, #2d3748 50%, #1a1f36 100%); z-index: 99999; text-align: center; padding: 50px 20px; font-family: 'Tajawal', sans-serif; overflow-y: auto;">
-    <div style="max-width: 500px; margin: 0 auto;">
-        <img src="https://i.ibb.co/0pMbNtdH/Elegant-luxurious-black-box-golden-brand-logo-mockup.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 30px; border: 3px solid #d4af37;">
-        <h1 style="color: #d4af37; margin-bottom: 20px; font-size: 2.5rem;">Malek.Art</h1>
-        <p style="margin-bottom: 30px; color: #f4e4a6; font-size: 1.2rem;">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</p>
-        
-        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; margin: 30px 0; border: 1px solid rgba(212, 175, 55, 0.3);">
-            <h2 style="color: #d4af37; margin-bottom: 20px;">تواصل معنا</h2>
-            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📧 malek9art@gmail.com</p>
-            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📞 +967 783 720 851</p>
-            <p style="color: white; margin: 15px 0; font-size: 1.1rem;">📍 تعز، الجمهورية اليمنية</p>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 gradient-bg shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img id="logo-img" src="https://i.ibb.co/rKPt5SY0/M-20250624-014050.png" alt="Malek Art Logo" class="w-10 h-10 md:w-12 md:h-12 ml-2 md:ml-3 rounded-full shadow-lg">
+                    <div class="text-xl md:text-2xl font-bold text-gold font-cairo" id="site-name">Malek.Art</div>
+                </div>
+                <div class="hidden md:flex space-x-reverse space-x-6">
+                    <a href="#home" class="text-white hover:text-gold transition-colors nav-link">الرئيسية</a>
+                    <a href="#about" class="text-white hover:text-gold transition-colors nav-link">من أنا</a>
+                    <a href="#services" class="text-white hover:text-gold transition-colors nav-link">الخدمات</a>
+                    <a href="#portfolio" class="text-white hover:text-gold transition-colors nav-link">المعرض</a>
+                    <a href="#testimonials" class="text-white hover:text-gold transition-colors nav-link">آراء العملاء</a>
+                    <a href="#contact" class="text-white hover:text-gold transition-colors nav-link">تواصل معي</a>
+                </div>
+                <button class="md:hidden text-white" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden hidden mt-4 bg-navy rounded-lg p-4" id="mobile-menu">
+                <a href="#home" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">الرئيسية</a>
+                <a href="#about" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">من أنا</a>
+                <a href="#services" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">الخدمات</a>
+                <a href="#portfolio" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">المعرض</a>
+                <a href="#testimonials" class="block py-3 text-white hover:text-gold nav-link border-b border-gray-700">آراء العملاء</a>
+                <a href="#contact" class="block py-3 text-white hover:text-gold nav-link">تواصل معي</a>
+            </div>
         </div>
-        
-        <button onclick="location.reload(true)" style="background: #d4af37; color: #1a1f36; border: none; padding: 15px 30px; border-radius: 50px; margin: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(212, 175, 55, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
-            🔄 إعادة تحميل الموقع
-        </button>
-        
-        <div style="margin-top: 40px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">
-            <p>إذا استمرت المشكلة، يرجى التواصل عبر الواتساب</p>
-            <p style="margin-top: 10px;">⏳ جاري تحميل المحتوى الرئيسي...</p>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen gradient-bg flex items-center relative overflow-hidden pt-16">
+        <!-- Background Image Slideshow -->
+        <div class="absolute inset-0 hero-slideshow" id="hero-slideshow">
+            <!-- سيتم ملؤه بالبيانات من ورقة "صور الهيرو" -->
         </div>
-    </div>
-</div>
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-navy bg-opacity-70"></div>
+        <!-- Decorative floating elements -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="floating absolute top-20 left-1/4 text-gold text-4xl opacity-60" style="animation-delay: -1s;">
+                <i class="fas fa-palette"></i>
+            </div>
+            <div class="floating absolute bottom-40 right-1/4 text-gold text-3xl opacity-60" style="animation-delay: -3s;">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-6 text-center relative z-10">
+            <div class="fade-in">
+                <div class="mb-6 md:mb-8">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-tajawal text-shadow hero-title" id="hero-title">مرحباً بك في مالك أرت</h1>
+                    <div class="text-xl md:text-2xl text-gold font-semibold mb-6 inline-block hero-subtitle" id="hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
+                </div>
+                <p class="text-base md:text-lg lg:text-xl text-light-gold mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed" id="hero-description">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#portfolio" class="gold-gradient text-navy px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-base md:text-lg w-full sm:w-auto" id="hero-button1">
+                        <i class="fas fa-eye ml-2"></i>
+                        استكشف أعمالي
+                    </a>
+                    <a href="#contact" class="border-2 border-gold text-gold px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-base md:text-lg w-full sm:w-auto hover-scale" id="hero-button2">
+                        <i class="fas fa-comments ml-2"></i>
+                        تواصل معي
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Animated Background Elements -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-navy to-transparent"></div>
+    </section>
 
-<script>
-// كود الطوارئ للشاشة البيضاء
-function showFallback() {
-    const fallback = document.getElementById('fallback-content');
-    if (fallback) {
-        fallback.style.display = 'block';
-        console.log('تم عرض محتوى الطوارئ بسبب الشاشة البيضاء');
-    }
-}
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4 font-cairo">من أنا</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-gray-600 text-base md:text-lg">تعرف على مالك وخبرته في عالم التصميم والتطوير</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="fade-in">
+                    <div class="relative">
+                        <img id="about-image" src="https://i.ibb.co/wF7bT3JG/IMG.png" alt="مالك أرت" class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl floating object-cover">
+                        <div class="absolute -top-4 -right-4 w-16 h-16 md:w-20 md:h-20 bg-navy rounded-full flex items-center justify-center pulse-gold">
+                            <i class="fas fa-code text-gold text-xl md:text-2xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-12 h-12 md:w-16 md:h-16 bg-gold rounded-full flex items-center justify-center floating" style="animation-delay: -1s;">
+                            <i class="fas fa-palette text-navy text-lg md:text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl md:text-3xl font-bold text-navy mb-6 font-cairo" id="about-title">مطور ومنسق مشاريع رقمية</h3>
+                    <p class="text-gray-700 mb-6 md:mb-8 leading-relaxed text-base md:text-lg" id="about-description">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8" id="skills-container">
+                        <!-- سيتم ملؤه بالبيانات من ورقة "المهارات" -->
+                    </div>
 
-// إذا لم تحمل الصفحة خلال 4 ثوان، عرض البديل
-setTimeout(function() {
-    if (!window.pageLoaded) {
-        showFallback();
-    }
-}, 4000);
+                    <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                        <h4 class="text-lg md:text-xl font-bold text-navy mb-4 flex items-center">
+                            <i class="fas fa-heart text-gold ml-2"></i>
+                            قيمي الأساسية
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3 md:gap-4">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-rocket text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">السرعة</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-expand-arrows-alt text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">قابلية التوسع</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-cogs text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">العملية</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-users text-gold text-xl md:text-2xl mb-2"></i>
+                                <div class="font-semibold text-navy text-sm md:text-base">خدمة المجتمع</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// تأكيد تحميل الصفحة
-window.addEventListener('load', function() {
-    window.pageLoaded = true;
-    const fallback = document.getElementById('fallback-content');
-    if (fallback) {
-        fallback.style.display = 'none';
-    }
-    console.log('الصفحة محملة بنجاح');
-});
-</script>
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-20 bg-white relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="floating absolute top-10 left-10 text-gold text-4xl">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="floating absolute bottom-20 right-20 text-gold text-5xl" style="animation-delay: -3s;">
+                <i class="fas fa-rocket"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4 font-tajawal">خدماتي</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">نقدم مجموعة شاملة من الخدمات الرقمية لتلبية احتياجات مشروعك</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-container">
+                <!-- سيتم ملؤه بالبيانات من ورقة "الخدمات" -->
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-12 md:mt-16 fade-in">
+                <div class="bg-gradient-to-r from-navy to-gray-800 p-6 md:p-8 rounded-xl md:rounded-2xl shadow-2xl">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 font-cairo">هل لديك مشروع في ذهنك؟</h3>
+                    <p class="text-light-gold mb-6 text-base md:text-lg">دعنا نحوله إلى واقع رقمي مذهل</p>
+                    <a href="#contact" class="gold-gradient text-navy px-6 py-3 md:px-8 md:py-4 rounded-full font-bold hover-scale shadow-lg text-base md:text-lg inline-block">
+                        <i class="fas fa-rocket ml-2"></i>
+                        ابدأ مشروعك الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-20 bg-gradient-to-br from-navy to-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="floating absolute top-16 left-16 text-gold text-5xl">
+                <i class="fas fa-quote-right"></i>
+            </div>
+            <div class="floating absolute bottom-20 right-20 text-gold text-4xl" style="animation-delay: -2s;">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-tajawal">آراء العملاء</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-light-gold text-base md:text-lg">ما يقوله عملاؤنا عن تجربتهم معنا</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="testimonials-container">
+                <!-- سيتم ملؤه بالبيانات من ورقة "آراء العملاء" -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 md:py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4">معرض الأعمال</h2>
+                <div class="w-20 h-1 gold-gradient mx-auto mb-6 md:mb-8"></div>
+                <div class="flex flex-wrap justify-center gap-3 mb-6 md:mb-8 portfolio-filters">
+                    <button class="filter-btn active px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold bg-gold text-white transition-all" data-filter="all">الكل</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="هوية بصرية">هوية بصرية</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواد تسويقية">مواد تسويقية</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="مواقع">مواقع</button>
+                    <button class="filter-btn px-4 py-2 md:px-6 md:py-2 rounded-full border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all" data-filter="دعوات">دعوات</button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="portfolio-container">
+                <!-- سيتم ملؤه بالبيانات من ورقة "المعرض" -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-20 bg-white relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4">تواصل معي</h2>
+                <div class="w-24 h-1 gold-gradient mx-auto mb-4"></div>
+                <p class="text-gray-600 text-base md:text-lg">هل لديك استفسار أو ترغب في بدء مشروع؟ لا تتردد في التواصل</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- معلومات الاتصال -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-navy mb-6">وسائل التواصل</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center ml-4 flex-shrink-0">
+                                <i class="fas fa-phone text-navy"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy mb-1">الهاتف</h4>
+                                <p class="text-gray-600" id="contact-phone">+967783720851</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center ml-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-navy"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy mb-1">البريد الإلكتروني</h4>
+                                <p class="text-gray-600" id="contact-email">malek9art@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center ml-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-navy"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy mb-1">الموقع</h4>
+                                <p class="text-gray-600" id="contact-address">تعز ، الجمهورية اليمنية</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h4 class="font-bold text-navy mb-4">تابعني على</h4>
+                        <div class="flex space-x-reverse space-x-4" id="social-media-container">
+                            <!-- سيتم ملؤه بالبيانات من ورقة "وسائل التواصل" -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نموذج الاتصال -->
+                <div class="fade-in">
+                    <form id="contact-form" class="bg-gray-50 p-6 md:p-8 rounded-xl shadow-lg">
+                        <div class="mb-6">
+                            <label for="name" class="block text-navy font-semibold mb-2">الاسم الكامل</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="email" class="block text-navy font-semibold mb-2">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="subject" class="block text-navy font-semibold mb-2">الموضوع</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="message" class="block text-navy font-semibold mb-2">الرسالة</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required></textarea>
+                        </div>
+
+                        <button type="submit" class="gold-gradient text-navy px-8 py-4 rounded-lg font-bold hover:shadow-lg transition-all w-full">
+                            <i class="fas fa-paper-plane ml-2"></i>
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <img id="footer-logo" src="https://i.ibb.co/rKPt5SY0/M-20250624-014050.png" alt="Malek Art Logo" class="w-12 h-12 ml-3 rounded-full">
+                        <div class="text-2xl font-bold text-gold font-cairo" id="footer-site-name">Malek.Art</div>
+                    </div>
+                    <p class="text-light-gold mb-6">نقدم حلولاً إبداعية تجمع بين الفن والتكنولوجيا لتحقيق أهدافك الرقمية</p>
+                    <div class="flex space-x-reverse space-x-4" id="footer-social-media">
+                        <!-- سيتم ملؤه بالبيانات من ورقة "وسائل التواصل" -->
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-6">روابط سريعة</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-light-gold hover:text-gold transition-colors nav-link">الرئيسية</a></li>
+                        <li><a href="#about" class="text-light-gold hover:text-gold transition-colors nav-link">من أنا</a></li>
+                        <li><a href="#services" class="text-light-gold hover:text-gold transition-colors nav-link">الخدمات</a></li>
+                        <li><a href="#portfolio" class="text-light-gold hover:text-gold transition-colors nav-link">المعرض</a></li>
+                        <li><a href="#contact" class="text-light-gold hover:text-gold transition-colors nav-link">تواصل معي</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gold mb-6">الخدمات</h3>
+                    <ul class="space-y-3" id="footer-services">
+                        <!-- سيتم ملؤه بالبيانات من ورقة "الخدمات" -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-light-gold">&copy; 2024 <span id="footer-copyright">Malek.Art</span>. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تحديد معرف جدول البيانات
+        const SPREADSHEET_ID = '1rgBxkULFrv0AJEsS05E1YbnpD9c5ZaggM73fhi1NkxE'; // تم التحقق من صحته
+
+        // تحميل بيانات ورقة "الإعدادات"
+        async function loadSettings() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الإعدادات`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const settings = {};
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        settings[row.c[0].v] = row.c[1]?.v;
+                    }
+                });
+
+                // تحديث العناصر في الصفحة
+                document.getElementById('site-name').textContent = settings['اسم الموقع'] || 'Malek.Art';
+                document.getElementById('footer-site-name').textContent = settings['اسم الموقع'] || 'Malek.Art';
+                document.getElementById('footer-copyright').textContent = settings['اسم الموقع'] || 'Malek.Art';
+                document.getElementById('logo-img').src = settings['شعار الموقع'] || '';
+                document.getElementById('footer-logo').src = settings['شعار الموقع'] || '';
+                document.getElementById('contact-email').textContent = settings['البريد الإلكتروني'] || '';
+                document.getElementById('contact-phone').textContent = settings['هاتف التواصل'] || '';
+                document.getElementById('contact-address').textContent = settings['العنوان'] || '';
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+
+        // تحميل بيانات ورقة "الرئيسية"
+        async function loadHero() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الرئيسية`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const hero = {};
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        hero[row.c[0].v] = row.c[1]?.v;
+                    }
+                });
+
+                document.getElementById('hero-title').textContent = hero['العنوان'] || 'مرحباً بك في مالك أرت';
+                document.getElementById('hero-subtitle').textContent = hero['الوصف'] || 'نبتكر حلولًا رقمية تجمع بين الفن والتسويق';
+                
+                const button1 = document.getElementById('hero-button1');
+                if (button1) button1.querySelector('span')?.remove();
+                if (button1 && hero['زر استكشف أعمالي']) {
+                    button1.innerHTML = `<i class="fas fa-eye ml-2"></i> ${hero['زر استكشف أعمالي']}`;
+                }
+
+                const button2 = document.getElementById('hero-button2');
+                if (button2) button2.querySelector('span')?.remove();
+                if (button2 && hero['زر تواصل معي']) {
+                    button2.innerHTML = `<i class="fas fa-comments ml-2"></i> ${hero['زر تواصل معي']}`;
+                }
+            } catch (error) {
+                console.error('Error loading hero:', error);
+            }
+        }
+
+        // تحميل صور الهيرو
+        async function loadHeroImages() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=صور الهيرو`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('hero-slideshow');
+                container.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach((row, index) => {
+                    if (row.c && row.c[0]?.v) {
+                        const slideHTML = `
+                            <div class="hero-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${row.c[0].v}');"></div>
+                        `;
+                        container.innerHTML += slideHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading hero images:', error);
+            }
+        }
+
+        // تحميل بيانات ورقة "من أنا"
+        async function loadAbout() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=من أنا`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const about = {};
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        about[row.c[0].v] = row.c[1]?.v;
+                    }
+                });
+
+                document.getElementById('about-title').textContent = about['العنوان'] || 'مطور ومنسق مشاريع رقمية';
+                document.getElementById('about-description').textContent = about['الوصف'] || '';
+                
+                const img = document.getElementById('about-image');
+                if (img && about['الصورة الشخصية']) {
+                    img.src = about['الصورة الشخصية'];
+                }
+            } catch (error) {
+                console.error('Error loading about:', error);
+            }
+        }
+
+        // تحميل المهارات
+        async function loadSkills() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=المهارات`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('skills-container');
+                container.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        const skillHTML = `
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow">
+                                <span class="font-semibold text-navy">${row.c[0].v}</span>
+                                <div class="w-24 bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gold h-2.5 rounded-full" style="width: ${row.c[1]?.v || 0}%"></div>
+                                </div>
+                                <span class="text-sm text-gold font-bold">${row.c[1]?.v || 0}%</span>
+                            </div>
+                        `;
+                        container.innerHTML += skillHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading skills:', error);
+            }
+        }
+
+        // تحميل الخدمات
+        async function loadServices() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الخدمات`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('services-container');
+                const footerContainer = document.getElementById('footer-services');
+                container.innerHTML = '';
+                footerContainer.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        const serviceHTML = `
+                            <div class="service-card p-6 bg-white rounded-xl shadow-lg hover-scale">
+                                <div class="w-14 h-14 bg-navy text-gold rounded-full flex items-center justify-center mb-4">
+                                    <i class="${row.c[2]?.v || 'fas fa-star'} text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-navy mb-3">${row.c[0].v}</h3>
+                                <p class="text-gray-600">${row.c[1]?.v}</p>
+                            </div>
+                        `;
+                        container.innerHTML += serviceHTML;
+                        footerContainer.innerHTML += `<li><a href="#services" class="text-light-gold hover:text-gold transition-colors">${row.c[0].v}</a></li>`;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading services:', error);
+            }
+        }
+
+        // تحميل آراء العملاء
+        async function loadTestimonials() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=آراء العملاء`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('testimonials-container');
+                container.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        const testimonialHTML = `
+                            <div class="testimonial-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center ml-3">
+                                        <i class="fas fa-user text-navy"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-navy">${row.c[0].v}</h4>
+                                        <div class="text-gold">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">"${row.c[1]?.v}"</p>
+                            </div>
+                        `;
+                        container.innerHTML += testimonialHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading testimonials:', error);
+            }
+        }
+
+        // تحميل المعرض
+        async function loadPortfolio() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=المعرض`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('portfolio-container');
+                container.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v) {
+                        const portfolioHTML = `
+                            <div class="portfolio-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="${row.c[3]?.v || 'all'}">
+                                <img src="${row.c[1]?.v || 'https://placehold.co/400x300'}" alt="${row.c[0]?.v}" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-navy mb-2">${row.c[0]?.v}</h3>
+                                    <p class="text-gray-600 mb-4">${row.c[2]?.v}</p>
+                                    <a href="${row.c[1]?.v || '#'}" target="_blank" class="text-gold font-semibold hover:text-navy transition-colors">
+                                        <i class="fas fa-external-link-alt ml-1"></i>
+                                        عرض التفاصيل
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += portfolioHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading portfolio:', error);
+            }
+        }
+
+        // تحميل وسائل التواصل
+        async function loadSocialMedia() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=وسائل التواصل`);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+                
+                const container = document.getElementById('social-media-container');
+                const footerContainer = document.getElementById('footer-social-media');
+                container.innerHTML = '';
+                footerContainer.innerHTML = '';
+                
+                json.table.rows.slice(1).forEach(row => {
+                    if (row.c && row.c[0]?.v && row.c[1]?.v) {
+                        const socialHTML = `
+                            <a href="${row.c[1].v}" class="w-10 h-10 bg-navy text-white rounded-full flex items-center justify-center hover:bg-gold transition-colors" target="_blank">
+                                <i class="${row.c[2]?.v || 'fab fa-link'}"></i>
+                            </a>
+                        `;
+                        container.innerHTML += socialHTML;
+                        footerContainer.innerHTML += socialHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading social media:', error);
+            }
+        }
+
+        // تحميل جميع البيانات عند تحميل الصفحة
+        window.addEventListener('load', async function() {
+            // إظهار مؤشر التحميل
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'loading-indicator';
+            document.body.appendChild(loadingIndicator);
+            
+            function updateLoading(percent) {
+                loadingIndicator.style.transform = `scaleX(${percent})`;
+            }
+            
+            try {
+                updateLoading(0.1);
+                await loadSettings();
+                
+                updateLoading(0.2);
+                await loadHero();
+                
+                updateLoading(0.3);
+                await loadHeroImages();
+                
+                updateLoading(0.4);
+                await loadAbout();
+                
+                updateLoading(0.5);
+                await loadSkills();
+                
+                updateLoading(0.6);
+                await loadServices();
+                
+                updateLoading(0.7);
+                await loadTestimonials();
+                
+                updateLoading(0.8);
+                await loadPortfolio();
+                
+                updateLoading(0.9);
+                await loadSocialMedia();
+                
+                updateLoading(1);
+                
+                // إزالة مؤشر التحميل
+                setTimeout(() => {
+                    loadingIndicator.style.opacity = '0';
+                    setTimeout(() => loadingIndicator.remove(), 300);
+                }, 500);
+                
+                // تهيئة الموقع بعد تحميل البيانات
+                initializeWebsite();
+            } catch (error) {
+                console.error('Error during initialization:', error);
+                updateLoading(1);
+                setTimeout(() => {
+                    loadingIndicator.style.opacity = '0';
+                    setTimeout(() => loadingIndicator.remove(), 300);
+                }, 500);
+            }
+        });
+
+        function initializeWebsite() {
+            // كود التنقل المتنقل
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // تأثير التظليل عند التمرير
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    nav.classList.add('shadow-xl');
+                } else {
+                    nav.classList.remove('shadow-xl');
+                }
+            });
+
+            // كود للعرض الشرائحي في الهيرو
+            let currentSlide = 0;
+            const heroSlides = document.querySelectorAll('.hero-slide');
+
+            function showSlide(n) {
+                heroSlides.forEach(slide => slide.classList.remove('active'));
+                currentSlide = (n + heroSlides.length) % heroSlides.length;
+                heroSlides[currentSlide].classList.add('active');
+            }
+
+            if (heroSlides.length > 0) {
+                setInterval(() => {
+                    showSlide(currentSlide + 1);
+                }, 5000);
+            }
+
+            // كود تصفية المعرض
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-gold', 'text-white');
+                        b.classList.add('text-gold', 'hover:bg-gold', 'hover:text-white');
+                    });
+                    
+                    this.classList.add('active', 'bg-gold', 'text-white');
+                    this.classList.remove('text-gold', 'hover:bg-gold', 'hover:text-white');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // كود للتحقق من صحة نموذج الاتصال
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+
+                    try {
+                        // لا يوجد نموذج فعلي، فقط رسالة
+                        alert('شكراً لتواصلك! تم إرسال رسالتك بنجاح وسنرد عليك قريباً.');
+                        contactForm.reset();
+                    } catch (error) {
+                        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+                    }
+                });
+            }
+
+            // كود للكشف عن العناصر وإضافة تأثير الظهور
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            checkFade();
+
+            // كود للتنقل السلس
+            document.querySelectorAll('a.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    if (mobileMenu) mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
