@@ -197,16 +197,35 @@
             transform-origin: left;
             transition: transform 0.3s;
         }
+
+        /* زر الواتس آب العائم */
+        .whatsapp-float {
+            animation: float 3s ease-in-out infinite;
+            filter: brightness(1.1);
+        }
+        .whatsapp-float:hover {
+            animation-duration: 0.6s;
+            animation-timing-function: ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(3deg);
+            }
+        }
     </style>
 </head>
 <body class="bg-white text-navy font-arabic">
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 gradient-bg shadow-lg">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <img id="logo-img" src="https://i.ibb.co/rKPt5SY0/M-20250624-014050.png" alt="Malek Art Logo" class="w-10 h-10 md:w-12 md:h-12 ml-2 md:ml-3 rounded-full shadow-lg">
-                    <div class="text-xl md:text-2xl font-bold text-gold font-cairo" id="site-name">Malek.Art</div>
+                    <img src="https://i.ibb.co/VpwXQ08f/M-20250902-011717.jpg" alt="Malek Art Logo" class="w-10 h-10 md:w-12 md:h-12 ml-2 md:ml-3 rounded-full shadow-lg">
+                    <div class="text-xl md:text-2xl font-bold text-gold font-cairo">مالك أرت Malek Art</div>
                 </div>
                 <div class="hidden md:flex space-x-reverse space-x-6">
                     <a href="#home" class="text-white hover:text-gold transition-colors nav-link">الرئيسية</a>
@@ -252,16 +271,16 @@
         <div class="container mx-auto px-4 md:px-6 text-center relative z-10">
             <div class="fade-in">
                 <div class="mb-6 md:mb-8">
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-tajawal text-shadow hero-title" id="hero-title">مرحباً بك في مالك أرت</h1>
-                    <div class="text-xl md:text-2xl text-gold font-semibold mb-6 inline-block hero-subtitle" id="hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-tajawal text-shadow hero-title">مرحباً بك في مالك أرت</h1>
+                    <div class="text-xl md:text-2xl text-gold font-semibold mb-6 inline-block hero-subtitle">نبتكر حلولًا رقمية تجمع بين الفن والتسويق</div>
                 </div>
-                <p class="text-base md:text-lg lg:text-xl text-light-gold mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed" id="hero-description">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
+                <p class="text-base md:text-lg lg:text-xl text-light-gold mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed">نحن نؤمن بأن كل مشروع يحتاج إلى لمسة إبداعية فريدة. من التصميم إلى التطوير، نقدم حلولاً شاملة تساعد أعمالك على النمو والازدهار في العالم الرقمي</p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <a href="#portfolio" class="gold-gradient text-navy px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-base md:text-lg w-full sm:w-auto" id="hero-button1">
+                    <a href="#portfolio" class="gold-gradient text-navy px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover-scale shadow-2xl pulse-gold text-base md:text-lg w-full sm:w-auto">
                         <i class="fas fa-eye ml-2"></i>
                         استكشف أعمالي
                     </a>
-                    <a href="#contact" class="border-2 border-gold text-gold px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-base md:text-lg w-full sm:w-auto hover-scale" id="hero-button2">
+                    <a href="#contact" class="border-2 border-gold text-gold px-6 py-3 md:px-10 md:py-4 rounded-full font-bold hover:bg-gold hover:text-navy transition-all text-base md:text-lg w-full sm:w-auto hover-scale">
                         <i class="fas fa-comments ml-2"></i>
                         تواصل معي
                     </a>
@@ -283,7 +302,7 @@
             <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="fade-in">
                     <div class="relative">
-                        <img id="about-image" src="https://i.ibb.co/wF7bT3JG/IMG.png" alt="مالك أرت" class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl floating object-cover">
+                        <img src="https://i.ibb.co/wF7bT3JG/IMG.png" alt="مالك أرت" class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl floating object-cover">
                         <div class="absolute -top-4 -right-4 w-16 h-16 md:w-20 md:h-20 bg-navy rounded-full flex items-center justify-center pulse-gold">
                             <i class="fas fa-code text-gold text-xl md:text-2xl"></i>
                         </div>
@@ -293,11 +312,11 @@
                     </div>
                 </div>
                 <div class="fade-in">
-                    <h3 class="text-2xl md:text-3xl font-bold text-navy mb-6 font-cairo" id="about-title">مطور ومنسق مشاريع رقمية</h3>
-                    <p class="text-gray-700 mb-6 md:mb-8 leading-relaxed text-base md:text-lg" id="about-description">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
+                    <h3 class="text-2xl md:text-3xl font-bold text-navy mb-6 font-cairo">مطور ومنسق مشاريع رقمية</h3>
+                    <p class="text-gray-700 mb-6 md:mb-8 leading-relaxed text-base md:text-lg">أنا مالك، مطور ومنسق مشاريع رقمية أبتكر حلولاً محاسبية وأكاديمية مبتكرة، وأربطها ببيانات حية عبر Google Sheets وApps Script. أؤمن بقوة الأدوات المجانية وكفاءتها في تحقيق نتائج احترافية تخدم المجتمع التجاري والحرفي.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8" id="skills-container">
-                        <!-- سيتم ملؤه بالبيانات من ورقة "المهارات" -->
+                        <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
                     </div>
 
                     <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
@@ -346,7 +365,7 @@
                 <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">نقدم مجموعة شاملة من الخدمات الرقمية لتلبية احتياجات مشروعك</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-container">
-                <!-- سيتم ملؤه بالبيانات من ورقة "الخدمات" -->
+                <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
             </div>
 
             <!-- Call to Action -->
@@ -381,7 +400,7 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="testimonials-container">
-                <!-- سيتم ملؤه بالبيانات من ورقة "آراء العملاء" -->
+                <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
             </div>
         </div>
     </section>
@@ -401,7 +420,7 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="portfolio-container">
-                <!-- سيتم ملؤه بالبيانات من ورقة "المعرض" -->
+                <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
             </div>
         </div>
     </section>
@@ -427,7 +446,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-navy mb-1">الهاتف</h4>
-                                <p class="text-gray-600" id="contact-phone">+967783720851</p>
+                                <p class="text-gray-600">+967783720851</p>
                             </div>
                         </div>
 
@@ -437,7 +456,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-navy mb-1">البريد الإلكتروني</h4>
-                                <p class="text-gray-600" id="contact-email">malek9art@gmail.com</p>
+                                <p class="text-gray-600">malek9art@gmail.com</p>
                             </div>
                         </div>
 
@@ -447,7 +466,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-navy mb-1">الموقع</h4>
-                                <p class="text-gray-600" id="contact-address">تعز ، الجمهورية اليمنية</p>
+                                <p class="text-gray-600">الجمهورية اليمنية</p>
                             </div>
                         </div>
                     </div>
@@ -455,7 +474,7 @@
                     <div class="mt-8">
                         <h4 class="font-bold text-navy mb-4">تابعني على</h4>
                         <div class="flex space-x-reverse space-x-4" id="social-media-container">
-                            <!-- سيتم ملؤه بالبيانات من ورقة "وسائل التواصل" -->
+                            <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
                         </div>
                     </div>
                 </div>
@@ -499,12 +518,12 @@
             <div class="grid md:grid-cols-3 gap-8 md:gap-12">
                 <div>
                     <div class="flex items-center mb-6">
-                        <img id="footer-logo" src="https://i.ibb.co/rKPt5SY0/M-20250624-014050.png" alt="Malek Art Logo" class="w-12 h-12 ml-3 rounded-full">
-                        <div class="text-2xl font-bold text-gold font-cairo" id="footer-site-name">Malek.Art</div>
+                        <img src="https://i.ibb.co/VpwXQ08f/M-20250902-011717.jpg" alt="Malek Art Logo" class="w-12 h-12 ml-3 rounded-full">
+                        <div class="text-2xl font-bold text-gold font-cairo">مالك أرت Malek Art</div>
                     </div>
                     <p class="text-light-gold mb-6">نقدم حلولاً إبداعية تجمع بين الفن والتكنولوجيا لتحقيق أهدافك الرقمية</p>
                     <div class="flex space-x-reverse space-x-4" id="footer-social-media">
-                        <!-- سيتم ملؤه بالبيانات من ورقة "وسائل التواصل" -->
+                        <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
                     </div>
                 </div>
 
@@ -522,96 +541,30 @@
                 <div>
                     <h3 class="text-xl font-bold text-gold mb-6">الخدمات</h3>
                     <ul class="space-y-3" id="footer-services">
-                        <!-- سيتم ملؤه بالبيانات من ورقة "الخدمات" -->
+                        <!-- سيتم ملؤه بالبيانات من جدول البيانات -->
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-700 mt-12 pt-8 text-center">
-                <p class="text-light-gold">&copy; 2024 <span id="footer-copyright">Malek.Art</span>. جميع الحقوق محفوظة</p>
+                <p class="text-light-gold">&copy; 2024 مالك أرت Malek Art. جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>
 
+    <!-- زر واتس آب العائم -->
+    <a 
+        href="https://wa.me/967783720851" 
+        target="_blank"
+        class="whatsapp-float fixed bottom-6 right-6 bg-gradient-to-br from-gold to-yellow-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:shadow-gold/50 transition-all duration-300 z-50 hover:scale-110"
+        aria-label="تواصل معي عبر الواتس آب"
+    >
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
     <script>
         // تحديد معرف جدول البيانات
-        const SPREADSHEET_ID = '1rgBxkULFrv0AJEsS05E1YbnpD9c5ZaggM73fhi1NkxE'; // تم التحقق من صحته
-
-        // تحميل بيانات ورقة "الإعدادات"
-        async function loadSettings() {
-    try {
-        // ✅ تم إزالة المسافة الزائدة بعد /d/
-        const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الإعدادات`);
-        
-        const text = await response.text();
-        
-        // ✅ التأكد من استخراج JSON بشكل آمن
-        const startIndex = text.indexOf('{');
-        const endIndex = text.lastIndexOf('}') + 1;
-        if (startIndex === -1 || endIndex === -1) {
-            throw new Error('Invalid JSON response');
-        }
-        
-        const jsonText = text.substring(startIndex, endIndex);
-        const json = JSON.parse(jsonText);
-        
-        const settings = {};
-        json.table.rows.slice(1).forEach(row => {
-            if (row.c && row.c[0]?.v) {
-                settings[row.c[0].v] = row.c[1]?.v;
-            }
-        });
-
-        // ✅ تحديث عناصر DOM
-        const siteName = settings['اسم الموقع'] || 'Malek.Art';
-        const logoUrl = settings['شعار الموقع'] || 'https://i.ibb.co/rKPt5SY0/M-20250624-014050.png';
-
-        document.getElementById('site-name').textContent = siteName;
-        document.getElementById('footer-site-name').textContent = siteName;
-        document.getElementById('footer-copyright').textContent = siteName;
-        document.getElementById('logo-img').src = logoUrl;
-        document.getElementById('footer-logo').src = logoUrl;
-        document.getElementById('contact-email').textContent = settings['البريد الإلكتروني'] || '';
-        document.getElementById('contact-phone').textContent = settings['هاتف التواصل'] || '';
-        document.getElementById('contact-address').textContent = settings['العنوان'] || '';
-
-    } catch (error) {
-        console.error('Error loading settings:', error);
-    }
-}
-
-        // تحميل بيانات ورقة "الرئيسية"
-        async function loadHero() {
-            try {
-                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الرئيسية`);
-                const text = await response.text();
-                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
-                
-                const hero = {};
-                json.table.rows.slice(1).forEach(row => {
-                    if (row.c && row.c[0]?.v) {
-                        hero[row.c[0].v] = row.c[1]?.v;
-                    }
-                });
-
-                document.getElementById('hero-title').textContent = hero['العنوان'] || 'مرحباً بك في مالك أرت';
-                document.getElementById('hero-subtitle').textContent = hero['الوصف'] || 'نبتكر حلولًا رقمية تجمع بين الفن والتسويق';
-                
-                const button1 = document.getElementById('hero-button1');
-                if (button1) button1.querySelector('span')?.remove();
-                if (button1 && hero['زر استكشف أعمالي']) {
-                    button1.innerHTML = `<i class="fas fa-eye ml-2"></i> ${hero['زر استكشف أعمالي']}`;
-                }
-
-                const button2 = document.getElementById('hero-button2');
-                if (button2) button2.querySelector('span')?.remove();
-                if (button2 && hero['زر تواصل معي']) {
-                    button2.innerHTML = `<i class="fas fa-comments ml-2"></i> ${hero['زر تواصل معي']}`;
-                }
-            } catch (error) {
-                console.error('Error loading hero:', error);
-            }
-        }
+        const SPREADSHEET_ID = '1rgBxkULFrv0AJEsS05E1YbnpD9c5ZaggM73fhi1NkxE';
 
         // تحميل صور الهيرو
         async function loadHeroImages() {
@@ -652,11 +605,6 @@
 
                 document.getElementById('about-title').textContent = about['العنوان'] || 'مطور ومنسق مشاريع رقمية';
                 document.getElementById('about-description').textContent = about['الوصف'] || '';
-                
-                const img = document.getElementById('about-image');
-                if (img && about['الصورة الشخصية']) {
-                    img.src = about['الصورة الشخصية'];
-                }
             } catch (error) {
                 console.error('Error loading about:', error);
             }
@@ -837,41 +785,35 @@
             
             try {
                 updateLoading(0.1);
-                await loadSettings();
-                
-                updateLoading(0.2);
-                await loadHero();
-                
-                updateLoading(0.3);
                 await loadHeroImages();
                 
-                updateLoading(0.4);
+                updateLoading(0.2);
                 await loadAbout();
                 
-                updateLoading(0.5);
+                updateLoading(0.3);
                 await loadSkills();
                 
-                updateLoading(0.6);
+                updateLoading(0.4);
                 await loadServices();
                 
-                updateLoading(0.7);
+                updateLoading(0.5);
                 await loadTestimonials();
                 
-                updateLoading(0.8);
+                updateLoading(0.6);
                 await loadPortfolio();
                 
-                updateLoading(0.9);
+                updateLoading(0.7);
                 await loadSocialMedia();
                 
                 updateLoading(1);
-                
+
                 // إزالة مؤشر التحميل
                 setTimeout(() => {
                     loadingIndicator.style.opacity = '0';
                     setTimeout(() => loadingIndicator.remove(), 300);
                 }, 500);
-                
-                // تهيئة الموقع بعد تحميل البيانات
+
+                // تهيئة الموقع
                 initializeWebsite();
             } catch (error) {
                 console.error('Error during initialization:', error);
@@ -951,21 +893,8 @@
             if (contactForm) {
                 contactForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    
-                    const formData = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        subject: document.getElementById('subject').value,
-                        message: document.getElementById('message').value
-                    };
-
-                    try {
-                        // لا يوجد نموذج فعلي، فقط رسالة
-                        alert('شكراً لتواصلك! تم إرسال رسالتك بنجاح وسنرد عليك قريباً.');
-                        contactForm.reset();
-                    } catch (error) {
-                        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
-                    }
+                    alert('شكراً لتواصلك! تم إرسال رسالتك بنجاح وسنرد عليك قريباً.');
+                    contactForm.reset();
                 });
             }
 
@@ -1005,30 +934,5 @@
             });
         }
     </script>
-<!-- زر واتس آب العائم - تصميم عصري بألوان الهوية -->
-<a 
-  href="https://wa.me/967783720851" 
-  target="_blank"
-  class="fixed bottom-6 right-6 bg-gradient-to-br from-gold to-yellow-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:shadow-gold/50 transition-all duration-300 z-50 animate-float hover:scale-110 transform hover:rotate-12"
-  style="animation: float 3s ease-in-out infinite; filter: brightness(1.1);"
-  aria-label="تواصل معي عبر الواتس آب"
->
-  <i class="fab fa-whatsapp text-2xl"></i>
-</a>
-
-<style>
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) rotate(-3deg);
-    }
-    50% {
-      transform: translateY(-10px) rotate(3deg);
-    }
-  }
-  .animate-float:hover {
-    animation-duration: 0.6s;
-    animation-timing-function: ease-in-out;
-  }
-</style>
 </body>
-</html>
+    </html>
