@@ -539,31 +539,46 @@
 
         // تحميل بيانات ورقة "الإعدادات"
         async function loadSettings() {
-            try {
-                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الإعدادات`);
-                const text = await response.text();
-                const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
-                
-                const settings = {};
-                json.table.rows.slice(1).forEach(row => {
-                    if (row.c && row.c[0]?.v) {
-                        settings[row.c[0].v] = row.c[1]?.v;
-                    }
-                });
-
-                // تحديث العناصر في الصفحة
-                document.getElementById('site-name').textContent = settings['اسم الموقع'] || 'Malek.Art';
-                document.getElementById('footer-site-name').textContent = settings['اسم الموقع'] || 'Malek.Art';
-                document.getElementById('footer-copyright').textContent = settings['اسم الموقع'] || 'Malek.Art';
-                document.getElementById('logo-img').src = settings['شعار الموقع'] || '';
-                document.getElementById('footer-logo').src = settings['شعار الموقع'] || '';
-                document.getElementById('contact-email').textContent = settings['البريد الإلكتروني'] || '';
-                document.getElementById('contact-phone').textContent = settings['هاتف التواصل'] || '';
-                document.getElementById('contact-address').textContent = settings['العنوان'] || '';
-            } catch (error) {
-                console.error('Error loading settings:', error);
-            }
+    try {
+        // ✅ تم إزالة المسافة الزائدة بعد /d/
+        const response = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=الإعدادات`);
+        
+        const text = await response.text();
+        
+        // ✅ التأكد من استخراج JSON بشكل آمن
+        const startIndex = text.indexOf('{');
+        const endIndex = text.lastIndexOf('}') + 1;
+        if (startIndex === -1 || endIndex === -1) {
+            throw new Error('Invalid JSON response');
         }
+        
+        const jsonText = text.substring(startIndex, endIndex);
+        const json = JSON.parse(jsonText);
+        
+        const settings = {};
+        json.table.rows.slice(1).forEach(row => {
+            if (row.c && row.c[0]?.v) {
+                settings[row.c[0].v] = row.c[1]?.v;
+            }
+        });
+
+        // ✅ تحديث عناصر DOM
+        const siteName = settings['اسم الموقع'] || 'Malek.Art';
+        const logoUrl = settings['شعار الموقع'] || 'https://i.ibb.co/rKPt5SY0/M-20250624-014050.png';
+
+        document.getElementById('site-name').textContent = siteName;
+        document.getElementById('footer-site-name').textContent = siteName;
+        document.getElementById('footer-copyright').textContent = siteName;
+        document.getElementById('logo-img').src = logoUrl;
+        document.getElementById('footer-logo').src = logoUrl;
+        document.getElementById('contact-email').textContent = settings['البريد الإلكتروني'] || '';
+        document.getElementById('contact-phone').textContent = settings['هاتف التواصل'] || '';
+        document.getElementById('contact-address').textContent = settings['العنوان'] || '';
+
+    } catch (error) {
+        console.error('Error loading settings:', error);
+    }
+}
 
         // تحميل بيانات ورقة "الرئيسية"
         async function loadHero() {
